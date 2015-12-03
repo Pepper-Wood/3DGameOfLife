@@ -16,6 +16,7 @@
 
 			var camera, scene, renderer;
 			var geometry, material, mesh;
+            var cenaMode = 0;
 
 			var init = function () {
 
@@ -37,7 +38,18 @@
 				mesh.rotation.y = -100;
 
 				scene.add( mesh );
-
+                var audio = document.createElement('audio');
+                var source = document.createElement('source');
+                if (cenaMode == 1)
+                {
+                    source.src = 'sounds/AND_HIS_NAME_IS_JOHN_CENA.wav';
+                }
+                else
+                {
+                    //source.src = 'whatever.mp3';
+                }
+                audio.appendChild(source);
+                audio.play();
 			}
 
 			var animate = function () {
