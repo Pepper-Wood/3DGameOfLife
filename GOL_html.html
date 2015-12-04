@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>John C's 3D Game Of Life</title>
+		<meta name="author" content="Samuel Levy" />
+		<script type="text/javascript" src="RequestAnimationFrame.js"></script>
+		<script type="text/javascript" src="three.js/build/Three.js"></script>
+		<script type="text/javascript" src="jquery-1.7.min.js"></script>
+		<script type="text/javascript" src="gameoflife.js" defer="defer"></script>
+		<style>
+			body {
+				font-family: Georgia, serif;
+				background-color: #e3e3e3;
+				margin: 0px;
+				padding: 10px;
+			}
+		</style>
+		<!-- Button Styling -->
+		<style type="text/css">
+			.button input {
+				color: #000;
+				background: #ffa20f;
+				border: 2px outset #d7b9c9
+			}
+		</style>
+	</head>
+
+
+	
+	<body>
+		<h1>John <input type="button" id="cena" class="button" value="Conway's"/> 3D Game Of Life</h1>
+		<!-- fyi use this in the javascript to change text -->
+		<!-- http://stackoverflow.com/questions/10671174/changing-button-text-onclick -->
+		
+		<!-- <p>
+			Conway's Game of life is... well it's <a href="http://www.bitstorm.org/gameoflife/">this</a>.
+			Obviously, it's pretty two dimensional, and that implementation is very
+			"written in java". Now there's all this fun "HTML5" stuff like canvases and
+			the like, so I figure that it's about time I figure out how they work.
+		</p>
+		<p>
+			Now, of course, with the extra dimension, the math will have to change.
+			Experiment time!
+		</p> -->
+		<p>
+			This is the final graphics project for Kathryn DiPippo, Marina Espinoza, Darien Keyack, Alexander Mohr, and Kathrine Ryan.
+		</p>
+		
+		<p>
+			<strong>Rules:</strong>
+			<ul>
+				<li>Cells (in this case, cubes) with only 1 or less neighbours die, as if by loneliness.</li>
+				<li>If 5 cells surround an empty cell, they breed and fill it.</li>
+				<li>If a cell has 8 or more neighbours, it dies from overcrowding.</li>
+			</ul>
+		</p>
+		<!-- adds a divider to the file; this runs the actual application -->
+		<div id="gameoflife" style="border:1px solid #CCCCCC; margin:20px;"></div>
+		
+		<!-- bottom input things -->
+		<div id="controls">
+			<table border="1" cellpadding="10"><tr>
+				<td>
+					<h3>Grid Size:</h3>
+					<p>x: <input type="text" id="grid_x" name="fname"></p>
+					<p>y: <input type="text" id="grid_y" name="fname"></p>
+					<p>z: <input type="text" id="grid_z" name="fname"></p>
+					<input type="button" id="init" value="Initiate"/>
+				</td>
+				<td>
+					<h3>Edit an Individual Cube:</h3>
+					<p>x: <input type="text" id="individ_x" name="fname"></p>
+					<p>y: <input type="text" id="individ_y" name="fname"></p>
+					<p>z: <input type="text" id="individ_z" name="fname"></p>
+					<input type="button" id="change" value="Change State"/>
+				</td>
+				<td>
+					<h3>Speed:</h3>
+					<select name="speed" id="speed">
+						<option value="1000">Slow (1 generation/second)</option>
+						<option value="500">Medium (2 generations/second)</option>
+						<option value="100">Fast (10 generations/second)</option>
+						<option value="50">Hyper (20 generations/second)</option>
+					</select>
+					<p><input type="button" id="start" value="Play" />
+					<!-- again, JS can be used to change this button's text -->
+					<input type="button" id="reset" value="Randomize/Reset" /></p>
+				</td>
+			</tr></table>
+		
+			
+			<!--Preset Games:
+			<select name="game_name" id="size">
+				<option value="10">Random</option>
+				<option value="20">The destroyer</option>
+				<option value="25">Death mechanics</option>
+			</select> -->
+				
+			<!-- <select name="size" id="size">
+				<option value="10">10x10x10</option>
+				<option value="20">15x15x15</option>
+				<option value="25">Medium (15625 cells)</option>
+			</select> -->
+		</div>
+		<!-- <p>
+			This was a fun experiment, created by <a href="http://www.samuellevy.com/">Samuel Levy</a>.
+			You can get the source code on <a href="https://github.com/samlev/3DGameOfLife">Git Hub</a>.
+		</p>
+		<p>
+			I used <a href="http://jquery.com/">jQuery</a>, <a href="https://github.com/mrdoob/three.js/">Three.js</a>,
+			and <a href="http://paulirish.com/2011/requestanimationframe-for-smart-animating/">RequestAnimationFrame</a>
+			to build this.
+		</p>
+		<p>* May be very slow... use at your own risk</p> -->
+	</body>
+</html>
