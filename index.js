@@ -28,6 +28,14 @@ function cubeObj(textureInt, state, x_pos, y_pos) {
 //=============================================================================
 // Initialize the grid; if type == true, cubes will have random states
 function initGrid(var type) {
+	// Initialize the tracked stats
+	cubesAlive = 0;
+	gen = 0;
+	deathOver = 0;
+	deathUnder = 0;
+	deathToll = 0;
+
+	// Initialize the grid
 	grid = [];
 	var newRow = [];
 	var newCube;
@@ -42,8 +50,13 @@ function initGrid(var type) {
 			// Randomize state (if applicable)
 			if (type) {
 				stateInt = Math.floor(Math.random()*2);
-				if (stateInt == 1) { state = true; }
-				else { state = false; }
+				if (stateInt == 1) { 
+					state = true; 
+					cubesAlive += 1;
+				}
+				else { 
+					state = false;
+				}
 			}
 			// Randomize texture
 			textureNew = Math.floor(Math.random()*6);			
@@ -80,7 +93,7 @@ function initGrid(var type) {
 //=============================================================================
 // Check if a given cube is alive or dead, and update the appropriate given var
 function deadOrAlive(var x, var y, var nAlive) {
-	if (grid[x][y] == true) {
+	if (grid[x][y].state == true) {
 		nAlive += 1;
 	}
 	return nAlive;
@@ -100,7 +113,7 @@ function updateCube(var x, var y, var gridNew) {
 		// Rule 1: Any live cell with fewer than two live neighbours dies, as if caused by under-population.
 		// Rule 3: Any live cell with more than three live neighbours dies, as if by over-population.
 		if (nAlive < 2 || nAlive > 3) {
-			gridNew[x][y] = false;
+			gridNew[x][y].state = false;
 			deathToll += 1;
 			cubesAlive -= 1;
 			if (nAlive < 2) { deathUnder += 1; } // Rule 1
@@ -112,7 +125,7 @@ function updateCube(var x, var y, var gridNew) {
 	else { // if the cell is dead
 		// Rule 4: Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 		if (nAlive == 3) {
-			gridNew[x][y] = true;
+			gridNew[x][y].state = true;
 			cubesAlive += 1;
 		}
 	}
