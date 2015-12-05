@@ -68,6 +68,7 @@
 					<input type="button" id="init" value="Initiate"/>
 				</td>
 				<td>
+					<!-- this might be difficult to do -->
 					<h3>Edit an Individual Cube:</h3>
 					<p>x: <input type="text" id="individ_x" name="fname"></p>
 					<p>y: <input type="text" id="individ_y" name="fname"></p>
@@ -75,6 +76,12 @@
 					<input type="button" id="change" value="Change State"/>
 				</td>
 				<td>
+					<h3>Preset Games:</h3>
+					<select name="game_name" id="size">
+						<option value="10">Random</option>
+						<option value="20">The destroyer</option>
+						<option value="25">Death mechanics</option>
+					</select>
 					<h3>Speed:</h3>
 					<select name="speed" id="speed">
 						<option value="1000">Slow (1 generation/second)</option>
@@ -89,7 +96,7 @@
 			</tr></table>
 		
 			
-			<!--Preset Games:
+			<!-- Preset Games:
 			<select name="game_name" id="size">
 				<option value="10">Random</option>
 				<option value="20">The destroyer</option>
