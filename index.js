@@ -10,6 +10,17 @@ deathUnder = 0; // Total deaths due to underpopulation
 deathToll = 0; // Total deaths overall
 
 //=============================================================================
+
+function cubeObj(material, materialJC, geometry, neighbors = 0, x_pos,y_pos ) {
+	this.material_ = material;
+	this.materialJC_ = materialJC;
+	this.mesh_ = new THREE.Mesh( geometry, material );
+	this.mesh_.rotation.x = -100;
+	this.mesh_.rotation.y = -100;
+	this.mesh_.position = new THREE.Vector3(x_pos,y_pos);
+}
+
+//=============================================================================
 // Initialize the grid such that all cubes are false/dead/off
 function initGridClean() {
 	grid = Array(gridWidth).fill(Array(gridHeight).fill(false));
