@@ -60,10 +60,10 @@
 		<p>
 			<strong>Rules:</strong>
 			<ul>
-				<li>Any live cell with < 2 live neighbours dies, as if caused by under-population.</li>
-				<li>Any live cell with 2 or 3 live neighbours lives on to the next generation.</li>
-				<li>Any live cell with > 3 live neighbours dies, as if by over-population.</li>
-				<li>Any dead cell with exactly 3 live neighbours becomes a live cell, as if by reproduction.</li>
+				<li>Any live cell with less than two live neighbors dies       (underpopulation)</li>
+				<li>Any live cell with two or three neighbors continues living</li>
+				<li>Any live cell with more than three neighbors lives         (overpopulation)</li>
+				<li>Any empty cell with three live neighbors becomes alive     (reproduction)</li>
 			</ul>
 		</p>
 		<!-- adds a divider to the file; this runs the actual application -->
