@@ -113,25 +113,25 @@
 				</td>
 				<td>
 					<h3>Current Values:</h3>
-					<p>cubesAlive:<font color="#0000ff"> <!-- blue -->
-					<script type="text/javascript">
-						 document.write(System.Gadget.Settings.read("cubesAlive"));
-					</script></p></font>
-					<p>gen:<font color="#00ff00"> <!-- green -->
+					<p>Generation:<font color="#00ff00"> <!-- green -->
 					<script type="text/javascript">
 						document.write(System.Gadget.Settings.read("gen"));
 					</script></p></font>
-					<p>deathOver:<font color="#ff0000"> <!-- red -->
+					<p>Cubes Currently Alive:<font color="#0000ff"> <!-- blue -->
 					<script type="text/javascript">
-						document.write(System.Gadget.Settings.read("deathOver"));
+						 document.write(System.Gadget.Settings.read("cubesAlive"));
 					</script></p></font>
-					<p>deathUnder:<font color="#ff0000">
+					<p>Death Toll (total):<font color="#ff0000">
+					<script type="text/javascript">
+						document.write(System.Gadget.Settings.read("deathToll"));
+					</script></p></font>
+					<p>Death toll (by underpopulation):<font color="#ff0000">
 					<script type="text/javascript">
 						document.write(System.Gadget.Settings.read("deathUnder"));
 					</script></p></font>
-					<p>deathToll:<font color="#ff0000">
+					<p>Death toll (by overpopulation):<font color="#ff0000"> <!-- red -->
 					<script type="text/javascript">
-						document.write(System.Gadget.Settings.read("deathToll"));
+						document.write(System.Gadget.Settings.read("deathOver"));
 					</script></p></font>
 				</td>
 			</tr></table>
