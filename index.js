@@ -12,7 +12,7 @@ deathToll = 0; // Total deaths overall
 //=============================================================================
 // Initialize the grid such that all cubes are false/dead/off
 function initGridClean() {
-	// * DARIEN DOES THIS ONE * //
+	grid = Array(gridWidth).fill(Array(gridHeight).fill(false));
 }
 
 //=============================================================================
