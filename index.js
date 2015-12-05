@@ -28,8 +28,8 @@ function initGridClean() {
 
 //=============================================================================
 // Initialize the grid such that cube status is randomized
-function initGridClean() {
-	// * MARINA DOES THIS ONE * //
+function initGridRandom() {
+	// * DARIEN DOES THIS ONE * //
 }
 
 //=============================================================================
@@ -46,10 +46,10 @@ function deadOrAlive(var x, var y, var nAlive) {
 function updateCube(var x, var y, var gridNew) {
 	// First, check the states of all neighbors and tally up # alive/dead
 	var nAlive = 0; // # of neighbors alive
-	nAlive = deadOrAlive(x - 1, y, neighbors);
-	nAlive = deadOrAlive(x + 1, y, neighbors);
-	nAlive = deadOrAlive(x, y - 1, neighbors);
-	nAlive = deadOrAlive(x, y + 1, neighbors);
+	if (x > 0) { nAlive = deadOrAlive(x - 1, y, neighbors); }
+	if (x < gridWidth) { nAlive = deadOrAlive(x + 1, y, neighbors); }
+	if (y > 0) { nAlive = deadOrAlive(x, y - 1, neighbors); }
+	if (y < gridWidth) { nAlive = deadOrAlive(x, y + 1, neighbors); }
 
 	if (grid[x][y]) { // if the cell is alive
 		// Rule 1: Any live cell with fewer than two live neighbours dies, as if caused by under-population.
@@ -77,8 +77,8 @@ function updateCube(var x, var y, var gridNew) {
 // Update the states of the entire grid
 function updateGrid() {
 	var gridNew = grid;
-	for (var x = 0; x < grid.length; ++x) {
-		for (var y = 0; y < grid[x].length; ++y) {
+	for (var x = 0; x < gridWidth; ++x) {
+		for (var y = 0; y < gridHeight; ++y) {
 			updateCube(x, y);
 		}
 	}
