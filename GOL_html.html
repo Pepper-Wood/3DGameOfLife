@@ -56,13 +56,14 @@
 		<p>
 			This is the final graphics project for Kathryn DiPippo, Marina Espinoza, Darien Keyack, Alexander Mohr, and Kathrine Ryan.
 		</p>
-		
+
 		<p>
 			<strong>Rules:</strong>
 			<ul>
-				<li>Cells (in this case, cubes) with only 1 or less neighbours die, as if by loneliness.</li>
-				<li>If 5 cells surround an empty cell, they breed and fill it.</li>
-				<li>If a cell has 8 or more neighbours, it dies from overcrowding.</li>
+				<li>Any live cell with < 2 live neighbours dies, as if caused by under-population.</li>
+				<li>Any live cell with 2 or 3 live neighbours lives on to the next generation.</li>
+				<li>Any live cell with > 3 live neighbours dies, as if by over-population.</li>
+				<li>Any dead cell with exactly 3 live neighbours becomes a live cell, as if by reproduction.</li>
 			</ul>
 		</p>
 		<!-- adds a divider to the file; this runs the actual application -->
@@ -109,6 +110,29 @@
 					<p><input type="button" id="start" value="Play" />
 					<!-- again, JS can be used to change this button's text -->
 					<input type="button" id="reset" value="Randomize/Reset" /></p>
+				</td>
+				<td>
+					<h3>Current Values:</h3>
+					<p>cubesAlive:<font color="#0000ff"> <!-- blue -->
+					<script type="text/javascript">
+						 document.write(System.Gadget.Settings.read("cubesAlive"));
+					</script></p></font>
+					<p>gen:<font color="#00ff00"> <!-- green -->
+					<script type="text/javascript">
+						document.write(System.Gadget.Settings.read("gen"));
+					</script></p></font>
+					<p>deathOver:<font color="#ff0000"> <!-- red -->
+					<script type="text/javascript">
+						document.write(System.Gadget.Settings.read("deathOver"));
+					</script></p></font>
+					<p>deathUnder:<font color="#ff0000">
+					<script type="text/javascript">
+						document.write(System.Gadget.Settings.read("deathUnder"));
+					</script></p></font>
+					<p>deathToll:<font color="#ff0000">
+					<script type="text/javascript">
+						document.write(System.Gadget.Settings.read("deathToll"));
+					</script></p></font>
 				</td>
 			</tr></table>
 		
