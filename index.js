@@ -23,6 +23,14 @@ function cubeObj(textureInt, state, x_pos, y_pos) {
 //=============================================================================
 // Initialize the grid; if type == true, cubes will have random states
 function initGrid(var type) {
+	// Initialize the tracked stats
+	cubesAlive = 0;
+	gen = 0;
+	deathOver = 0;
+	deathUnder = 0;
+	deathToll = 0;
+
+	// Initialize the grid
 	grid = [];
 	var newRow = [];
 	var newCube;
@@ -37,8 +45,13 @@ function initGrid(var type) {
 			// Randomize state (if applicable)
 			if (type) {
 				stateInt = Math.floor(Math.random()*2);
-				if (stateInt == 1) { state = true; }
-				else { state = false; }
+				if (stateInt == 1) { 
+					state = true; 
+					cubesAlive += 1;
+				}
+				else { 
+					state = false;
+				}
 			}
 			// Randomize texture
 			textureNew = Math.floor(Math.random()*6);			
