@@ -8,13 +8,18 @@ gen = 0; // Current generation/iteration number
 deathOver = 0; // Total deaths due to overpopulation
 deathUnder = 0; // Total deaths due to underpopulation
 deathToll = 0; // Total deaths overall
+var cena_textures = ["cena_textures/1.jpg","cena_textures/2.jpg","cena_textures/3.jpg","cena_textures/4.jpg", "cena_textures/5.jpg", "cena_textures/6.jpg"];
+var color_textures = ["cena_textures/1.jpg","color_textures/2.jpg","color_textures/3.jpg","color_textures/4.jpg", "color_textures/5.jpg", "color_textures/6.jpg"];
 
 //=============================================================================
 function cubeObj(textureInt, state, x_pos, y_pos) {
-	// * NEEDS TO BE MODIFIED TO ACCOUNT FOR CHANGES*
-	this.material_ = material;
-	this.materialJC_ = materialJC;
-	this.mesh_ = new THREE.Mesh( geometry, material );
+	geometry = new THREE.CubeGeometry( 200, 200, 200 );
+	material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture(color_textures[textureInt-1]) } );
+
+	this.textureInt_ = textureInt;
+	this.state_ = state;
+
+	this.mesh_ = new THREE.Mesh( geometry , material );
 	this.mesh_.rotation.x = -100;
 	this.mesh_.rotation.y = -100;
 	this.mesh_.position = new THREE.Vector3(x_pos,y_pos);
