@@ -62,18 +62,24 @@
 			<table border="1" cellpadding="10"><tr>
 				<td>
 					<h3>Grid Size:</h3>
-					<p>x: <input type="text" id="grid_x" name="fname"></p>
-					<p>y: <input type="text" id="grid_y" name="fname"></p>
-					<p>z: <input type="text" id="grid_z" name="fname"></p>
+					<p>Width: <input type="text" id="gridWidth" name="fname"></p>
+					<p>Height: <input type="text" id="gridHeight" name="fname"></p>
 					<input type="button" id="init" value="Initiate"/>
+					<!-- TO USE, ADD TO JAVASCRIPT:
+					var gridWidth = document.getElementById('gridWidth');
+					var gridHeight = document.getElementById('gridHeight');
+					-->
 				</td>
 				<td>
 					<!-- this might be difficult to do -->
 					<h3>Edit an Individual Cube:</h3>
-					<p>x: <input type="text" id="individ_x" name="fname"></p>
-					<p>y: <input type="text" id="individ_y" name="fname"></p>
-					<p>z: <input type="text" id="individ_z" name="fname"></p>
-					<input type="button" id="change" value="Change State"/>
+					<p>Horiz. Location: <input type="text" id="individ_horiz" name="fname"></p>
+					<p>Vert.  Location: <input type="text" id="individ_vert" name="fname"></p>
+					<input type="button" id="change" value="Add Cube"/>
+					<!-- TO USE, ADD TO JAVASCRIPT:
+					var ???? = document.getElementById('gridWidth');
+					var ???? = document.getElementById('gridHeight');
+					-->
 				</td>
 				<td>
 					<h3>Preset Games:</h3>
