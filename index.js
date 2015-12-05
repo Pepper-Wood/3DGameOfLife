@@ -71,7 +71,7 @@ function updateGrid() {
 			updateCube(x, y);
 		}
 	}
-	grid = newgrid;
+	grid = gridNew;
 }
 
 //=============================================================================
