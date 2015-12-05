@@ -10,8 +10,8 @@ deathUnder = 0; // Total deaths due to underpopulation
 deathToll = 0; // Total deaths overall
 
 //=============================================================================
-
-function cubeObj(material, materialJC, geometry, neighbors = 0, x_pos,y_pos ) {
+function cubeObj(textureInt, state, x_pos, y_pos) {
+	// * NEEDS TO BE MODIFIED TO ACCOUNT FOR CHANGES*
 	this.material_ = material;
 	this.materialJC_ = materialJC;
 	this.mesh_ = new THREE.Mesh( geometry, material );
@@ -21,15 +21,55 @@ function cubeObj(material, materialJC, geometry, neighbors = 0, x_pos,y_pos ) {
 }
 
 //=============================================================================
-// Initialize the grid such that all cubes are false/dead/off
-function initGridClean() {
-	grid = Array(gridWidth).fill(Array(gridHeight).fill(false));
-}
+// Initialize the grid; if type == true, cubes will have random states
+function initGrid(var type) {
+	grid = [];
+	var newRow = [];
+	var newCube;
+	var textureNew;
+	var state = false;
+	var stateInt;
 
-//=============================================================================
-// Initialize the grid such that cube status is randomized
-function initGridRandom() {
-	// * DARIEN DOES THIS ONE * //
+	for (var x = 0; x < gridWidth; ++x) {
+		newRow = [];
+		
+		for (var y = 0; y < gridLength; ++y) {
+			// Randomize state (if applicable)
+			if (type) {
+				stateInt = Math.floor(Math.random()*2);
+				if (stateInt == 1) { state = true; }
+				else { state = false; }
+			}
+			// Randomize texture
+			textureNew = Math.floor(Math.random()*6);			
+			if (x == 0 && y == 0) { // upper left corner
+				break;
+			}
+			else if (x > 0 && y == 0) { // first row
+				while (grid[x - 1][y].textureInt == textureNew) {
+					textureNew = Math.floor(Math.random()*6);
+				}
+			}
+			else if (x == 0 && y > 0) { // first cube in all rows after the 1st
+				while (grid[x][y - 1].textureInt == textureNew) {
+					textureNew = Math.floor(Math.random()*6);
+				}
+			}
+			else if (x > 0 && y > 0 && y < gridHeight) { // all rows but first and last, not first in row
+				while (grid[x - 1][y].textureInt == textureNew || grid[x][y - 1].textureInt == textureNew) {
+					textureNew = Math.floor(Math.random()*6);
+				}
+			}
+			else if (x > 0 && y == gridHeight) { // last row
+				while (grid[x - 1][y].textureInt == textureNew) {
+					textureNew = Math.floor(Math.random()*6);
+				}
+			}			
+			newCube = new cubeObj(textureInt, state, x, y);
+			newRow.push(newCube);
+		}
+		grid.push(newRow);
+	}
 }
 
 //=============================================================================
