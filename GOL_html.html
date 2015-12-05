@@ -28,13 +28,13 @@
 
 	
 	<body>
-		<h1>John <input onclick="modeChange()" type="button" value="Conway's" id="test"></input>  3D Game Of Life</h1>
+		<h1>John <input onclick="modeChange()" type="button" value="Conway's" id="modeButton"></input>  3D Game Of Life</h1>
 		<!-- http://stackoverflow.com/questions/10671174/changing-button-text-onclick -->
 		<!-- fyi use this in the javascript to change text -->
 		<script>
         function modeChange()
         {
-            var elem = document.getElementById("test");
+            var elem = document.getElementById("modeButton");
             if (elem.value == "Conway's") elem.value = "Cena's";
             else elem.value = "Conway's";
             
