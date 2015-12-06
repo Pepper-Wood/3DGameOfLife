@@ -2,7 +2,6 @@
 <html>
 	<head>
 		<title>John C's 3D Game Of Life</title>
-		<meta name="author" content="Samuel Levy" />
 		<script type="text/javascript" src="RequestAnimationFrame.js"></script>
 		<script type="text/javascript" src="three.js/build/Three.js"></script>
 		<script type="text/javascript" src="jquery-1.7.min.js"></script>
@@ -42,17 +41,6 @@
         </script>
 		<!-- fyi use this in the javascript to change text -->
 		<!-- http://stackoverflow.com/questions/10671174/changing-button-text-onclick -->
-		
-		<!-- <p>
-			Conway's Game of life is... well it's <a href="http://www.bitstorm.org/gameoflife/">this</a>.
-			Obviously, it's pretty two dimensional, and that implementation is very
-			"written in java". Now there's all this fun "HTML5" stuff like canvases and
-			the like, so I figure that it's about time I figure out how they work.
-		</p>
-		<p>
-			Now, of course, with the extra dimension, the math will have to change.
-			Experiment time!
-		</p> -->
 		<p>
 			This is the final graphics project for Kathryn DiPippo, Marina Espinoza, Darien Keyack, Alexander Mohr, and Kathrine Ryan.
 		</p>
@@ -105,10 +93,10 @@
 					
 					<h3>Speed:</h3>
 					<select name="speed" id="speed">
-						<option value="1000">Slow (1 generation/second)</option>
-						<option value="500">Medium (2 generations/second)</option>
-						<option value="100">Fast (10 generations/second)</option>
-						<option value="50">Hyper (20 generations/second)</option>
+						<option value="1000">Slow (1 gen/sec)</option>
+						<option value="500">Medium (2 gen/sec)</option>
+						<option value="100">Fast (10 gen/sec)</option>
+						<option value="50">Ludicrous (20 gen/sec)</option>
 					</select>
 					<p><input type="button" id="start" value="Play" />
 					
@@ -165,15 +153,5 @@
 				<option value="25">Medium (15625 cells)</option>
 			</select> -->
 		</div>
-		<!-- <p>
-			This was a fun experiment, created by <a href="http://www.samuellevy.com/">Samuel Levy</a>.
-			You can get the source code on <a href="https://github.com/samlev/3DGameOfLife">Git Hub</a>.
-		</p>
-		<p>
-			I used <a href="http://jquery.com/">jQuery</a>, <a href="https://github.com/mrdoob/three.js/">Three.js</a>,
-			and <a href="http://paulirish.com/2011/requestanimationframe-for-smart-animating/">RequestAnimationFrame</a>
-			to build this.
-		</p>
-		<p>* May be very slow... use at your own risk</p> -->
 	</body>
 </html>
