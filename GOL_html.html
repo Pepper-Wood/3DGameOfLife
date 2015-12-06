@@ -28,7 +28,7 @@
 
 	
 	<body>		
-		<h1><input type="image" src="https://wiki.waze.com/wiki/images/thumb/f/f9/UnmuteIcoNew.PNG/40px-UnmuteIcoNew.PNG" /> John <input onclick="modeChange()" type="button" value="Conway's" id="modeButton"></input>  3D Game Of Life</h1>
+		<h1> John <input onclick="modeChange()" type="button" value="Conway's" id="modeButton"></input>  3D Game Of Life</h1>
 		<!-- http://stackoverflow.com/questions/10671174/changing-button-text-onclick -->
 		<!-- fyi use this in the javascript to change text -->
 		<script>
@@ -76,30 +76,33 @@
 					<h3>Grid Size:</h3>
 					<p>Width: <input type="text" id="gridWidth" name="fname"></p>
 					<p>Height: <input type="text" id="gridHeight" name="fname"></p>
-					<input type="button" id="init" value="Initiate"/>
+					
 					<!-- TO USE, ADD TO JAVASCRIPT:
 					var gridWidth = document.getElementById('gridWidth');
 					var gridHeight = document.getElementById('gridHeight');
 					-->
+					<p>Cube States: <select name="game_name" id="size">
+						<option value="10">Default</option>
+						<option value="20">All Dead</option>
+						<option value="30">Random</option>
+					</select></p>
+					
+					<input type="button" id="init" value="Initialize"/>
+					
 				</td>
 				<td>
 					<!-- this might be difficult to do -->
 					<h3>Edit an Individual Cube:</h3>
-					<p>Horiz. Location: <input type="text" id="individ_horiz" name="fname"></p>
-					<p>Vert.  Location: <input type="text" id="individ_vert" name="fname"></p>
-					<input type="button" id="change" value="Add Cube"/>
+					<p>X: <input type="text" id="individ_x" name="fname"></p>
+					<p>Y: <input type="text" id="individ_y" name="fname"></p>
+					<input type="button" id="change" value="Change Cube State"/>
 					<!-- TO USE, ADD TO JAVASCRIPT:
 					var ???? = document.getElementById('gridWidth');
 					var ???? = document.getElementById('gridHeight');
 					-->
 				</td>
-				<td>
-					<h3>Preset Games:</h3>
-					<select name="game_name" id="size">
-						<option value="10">Random</option>
-						<option value="20">The destroyer</option>
-						<option value="25">Death mechanics</option>
-					</select>
+				<!-- <td>
+					
 					<h3>Speed:</h3>
 					<select name="speed" id="speed">
 						<option value="1000">Slow (1 generation/second)</option>
@@ -108,9 +111,9 @@
 						<option value="50">Hyper (20 generations/second)</option>
 					</select>
 					<p><input type="button" id="start" value="Play" />
-					<!-- again, JS can be used to change this button's text -->
+					
 					<input type="button" id="reset" value="Randomize/Reset" /></p>
-				</td>
+				</td> -->
 				<td>
 					<h3>Current Values:</h3>
 					<p>Generation:<font color="#00ff00"> <!-- green -->
@@ -135,7 +138,23 @@
 					</script></p></font>
 				</td>
 			</tr></table>
-		
+			<p></p>
+			
+
+			<script type="text/javascript">
+				function swap() {
+					if (document.getElementById("pic").src.endsWith('PLAYING.png') != -1) { //==:Comparison
+						document.getElementById("pic").src = "MUTE.png"; //=:assignment   
+					} else if (window.document.pic.src.endsWith('MUTE.png') != -1) {
+						document.getElementById("pic").src = "PLAYING.png"; 
+					}
+				}
+			</script>
+			
+			<!-- <img src="PLAYING.png" name="pic" onclick="swap()"/>
+			<img src="PLAYING.png" onclick="this.src = this.src == playingImg ? muteImg : playingImg;"/> -->
+			
+			<input type="image" src="PLAYING.png" name="pic" onclick="swap()"/>
 			
 			<!-- Preset Games:
 			<select name="game_name" id="size">
