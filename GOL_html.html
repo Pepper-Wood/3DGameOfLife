@@ -140,22 +140,18 @@
 			</tr></table>
 			<p></p>
 			
-
-			<script type="text/javascript">
-				function swap() {
-					if (document.getElementById("pic").src.endsWith('PLAYING.png') != -1) { //==:Comparison
-						document.getElementById("pic").src = "MUTE.png"; //=:assignment   
-					} else if (window.document.pic.src.endsWith('MUTE.png') != -1) {
-						document.getElementById("pic").src = "PLAYING.png"; 
-					}
-				}
-			</script>
-			
 			<!-- <img src="PLAYING.png" name="pic" onclick="swap()"/>
 			<img src="PLAYING.png" onclick="this.src = this.src == playingImg ? muteImg : playingImg;"/> -->
 			
-			<input type="image" src="PLAYING.png" name="pic" onclick="swap()"/>
-			
+			<img id="pic" onclick="swap()" src="PLAYING.png">
+			<script>
+				function swap() 
+                {
+                    var image = document.getElementById("pic");
+					if (image.src.match("PLAYING.png")) image.src = "MUTE.png";
+					else image.src = "PLAYING.png";
+				}
+			</script>
 			<!-- Preset Games:
 			<select name="game_name" id="size">
 				<option value="10">Random</option>
