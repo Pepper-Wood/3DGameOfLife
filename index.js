@@ -26,7 +26,7 @@ function cubeObj(textureInt, state, x_pos, y_pos) {
 }
 
 //=============================================================================
-// Initialize the grid; if type == true, cubes will have random states
+// Initialize the grid; if type == true, cubes will have random states, else all will be dead
 function initGrid(var type) {
 	// Initialize the tracked stats
 	cubesAlive = 0;
@@ -100,7 +100,7 @@ function deadOrAlive(var x, var y, var nAlive) {
 }
 
 //=============================================================================
-// Have a specific cube update its state
+// Have a specific cube update its state according the rules
 function updateCube(var x, var y, var gridNew) {
 	// First, check the states of all neighbors and tally up # alive/dead
 	var nAlive = 0; // # of neighbors alive
@@ -129,6 +129,19 @@ function updateCube(var x, var y, var gridNew) {
 			cubesAlive += 1;
 		}
 	}
+}
+
+//=============================================================================
+// Change a specific cube's state to be the opposite of what it currently is
+function switchCubeState(var x, var y) {
+	if (grid[x][y].state) { // if the cube is currently alive
+		grid[x][y].state = false;
+		cubesAlive -= 1;
+	}
+	else {
+		grid[x][y].state = true;
+		cubesAlive += 1;
+	} 
 }
 
 //=============================================================================
