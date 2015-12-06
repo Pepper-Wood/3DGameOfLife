@@ -6,7 +6,7 @@
 		<script type="text/javascript" src="RequestAnimationFrame.js"></script>
 		<script type="text/javascript" src="three.js/build/Three.js"></script>
 		<script type="text/javascript" src="jquery-1.7.min.js"></script>
-		<script type="text/javascript" src="gameoflife.js" defer="defer"></script>
+		<script type="text/javascript" src="index.js" defer="defer"></script>
 		<style>
 			body {
 				font-family: Georgia, serif;
@@ -28,11 +28,11 @@
 
 	
 	<body>		
-		<h1> John <input onclick="modeChange()" type="button" value="Conway's" id="modeButton"></input>  3D Game Of Life</h1>
+		<h1> John <input onclick="conwayButtonPress()" type="button" value="Conway's" id="modeButton"></input>  3D Game Of Life</h1>
 		<!-- http://stackoverflow.com/questions/10671174/changing-button-text-onclick -->
 		<!-- fyi use this in the javascript to change text -->
 		<script>
-        function modeChange()
+        function conwayButtonPress()
         {
             var elem = document.getElementById("modeButton");
             if (elem.value == "Conway's") elem.value = "Cena's";
@@ -143,9 +143,9 @@
 			<!-- <img src="PLAYING.png" name="pic" onclick="swap()"/>
 			<img src="PLAYING.png" onclick="this.src = this.src == playingImg ? muteImg : playingImg;"/> -->
 			
-			<img id="pic" onclick="swap()" src="textures\PLAYING.png">
+			<img id="pic" onclick="volumeToggle()" src="textures\PLAYING.png">
 			<script>
-				function swap() 
+				function volumeToggle() 
                 {
                     var image = document.getElementById("pic");
 					if (image.src.match("textures/PLAYING.png")) image.src = "textures/MUTE.png";

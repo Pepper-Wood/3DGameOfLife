@@ -8,8 +8,8 @@ gen = 0; // Current generation/iteration number
 deathOver = 0; // Total deaths due to overpopulation
 deathUnder = 0; // Total deaths due to underpopulation
 deathToll = 0; // Total deaths overall
-var cena_textures = ["cena_textures/1.jpg","cena_textures/2.jpg","cena_textures/3.jpg","cena_textures/4.jpg", "cena_textures/5.jpg", "cena_textures/6.jpg"];
-var color_textures = ["cena_textures/1.jpg","color_textures/2.jpg","color_textures/3.jpg","color_textures/4.jpg", "color_textures/5.jpg", "color_textures/6.jpg"];
+var cena_textures = ["textures/cena_textures/1.jpg","textures/cena_textures/2.jpg","textures/cena_textures/3.jpg","textures/cena_textures/4.jpg", "textures/cena_textures/5.jpg", "textures/cena_textures/6.jpg"];
+var color_textures = ["textures/color_textures/1.jpg","textures/color_textures/2.jpg","textures/color_textures/3.jpg","textures/color_textures/4.jpg", "textures/color_textures/5.jpg", "textures/color_textures/6.jpg"];
 
 //=============================================================================
 function cubeObj(textureInt, state, x_pos, y_pos) {
