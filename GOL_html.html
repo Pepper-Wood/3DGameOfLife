@@ -70,12 +70,11 @@
 					var gridHeight = document.getElementById('gridHeight');
 					-->
 					<p>Cube States: <select name="game_name" id="size">
-						<option value="10">Default</option>
-						<option value="20">All Dead</option>
-						<option value="30">Random</option>
+						<option value="10">All Dead</option>
+						<option value="20">Random</option>
 					</select></p>
 					
-					<input type="button" id="init" value="Initialize"/>
+					<input type="button" id="init" value="Initialize" onclick="initialize_button()"/>
 					
 				</td>
 				<td>
@@ -83,7 +82,8 @@
 					<h3>Edit an Individual Cube:</h3>
 					<p>X: <input type="text" id="individ_x" name="fname"></p>
 					<p>Y: <input type="text" id="individ_y" name="fname"></p>
-					<input type="button" id="change" value="Change Cube State"/>
+					<input type="button" id="switcheroo" value="Switch Cube State" onclick="change_state_button()"/>
+
 					<!-- TO USE, ADD TO JAVASCRIPT:
 					var ???? = document.getElementById('gridWidth');
 					var ???? = document.getElementById('gridHeight');
@@ -124,6 +124,9 @@
 					<script type="text/javascript">
 						document.write(System.Gadget.Settings.read("deathOver"));
 					</script></p></font>
+					<p><input type="button" id="play_butt" value="Play" onclick="play_button()"/>
+					<input type="button" id="pause_butt" value="Pause" onclick="pause_button"/></p>
+					
 				</td>
 			</tr></table>
 			<p></p>
@@ -133,7 +136,7 @@
 			
 			<img id="pic" onclick="volumeToggle()" src="textures\PLAYING.png">
 			<script>
-				function volumeToggle() 
+				function volumeToggle()
                 {
                     var image = document.getElementById("pic");
 					if (image.src.match("textures/PLAYING.png")) image.src = "textures/MUTE.png";

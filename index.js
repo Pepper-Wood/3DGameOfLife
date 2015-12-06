@@ -12,6 +12,35 @@ var cena_textures = ["textures/cena_textures/1.jpg","textures/cena_textures/2.jp
 var color_textures = ["textures/color_textures/1.jpg","textures/color_textures/2.jpg","textures/color_textures/3.jpg","textures/color_textures/4.jpg", "textures/color_textures/5.jpg", "textures/color_textures/6.jpg"];
 
 //=============================================================================
+function initialize_button() {
+	var gridWidth = document.getElementById("gridWidth").value;
+	var gridHeight = document.getElementById("gridHeight").value;
+	
+	// if bool is true, then random. If false, then all dead
+	if (document.getElementById("game_name").value == 10) { // ALL DEAD
+		initGrid(false);
+	} else if (document.getElementById("game_name").value == 20) { // RANDOM
+		initGrid(true);
+	}
+}
+
+//=============================================================================
+function change_state_button() {
+	// individ_x and individ_y are the parameters needed
+	switchCubeState(document.getElementById("individ_x").value, document.getElementById("individ_y").value);
+}
+
+//=============================================================================
+function play_button() {
+	//DO STUFF
+}
+
+//=============================================================================
+function pause_button() {
+	//DO STUFF
+}
+
+//=============================================================================
 function cubeObj(textureInt, state, x_pos, y_pos) {
 	geometry = new THREE.CubeGeometry( 200, 200, 200 );
 	material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture(color_textures[textureInt-1]) } );
