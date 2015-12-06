@@ -159,5 +159,16 @@ function updateGrid() {
 //=============================================================================
 //=============================================================================
 window.onload = function init() {
-	// * VERY IMPORTANT STUFF GOES HERE YOU SHOULD ADD IT *
+	// * VERY IMPORTANT STUFF GOES HERE YOU SHOULD ADD IT * //
+    
+    //initialize and play music, starting with conway music
+    var conwayAudio = document.createElement('audio');
+    var conwaySource = document.createElement('source');
+    var cenaAudio = document.createElement('audio');
+    var cenaSource = document.createElement('source');
+    //conwaySource.src = 'whatever.mp3';
+    cenaSource.src = 'sounds/AND_HIS_NAME_IS_JOHN_CENA.wav';
+    
+    conwayAudio.appendChild(source);
+    conwayAudio.play();    
 };
