@@ -153,7 +153,7 @@ function cubeObj(t_Int, s, x_pos, y_pos) {
     this.meshChange = function(mat)
     {
         this.mesh = new THREE.Mesh(this.geometry,mat);
-        this.mesh.position = new THREE.Vector3(this.x_pos * this.len_side, this.y_pos * this.len_side, 0);
+        this.mesh.position = new THREE.Vector3((x_pos * len_side) - (window.innerHeight), (y_pos * len_side) - (window.innerWidth/4), 0);
     }
     
     
@@ -164,8 +164,8 @@ function cubeObj(t_Int, s, x_pos, y_pos) {
 
 	this.mesh = new THREE.Mesh( geometry , material );
 	// this.mesh.rotation.x = -100;
-	// this.mesh.rotation.y = -100;
-	this.mesh.position = new THREE.Vector3(x_pos * len_side, y_pos * len_side, 0);
+	// this.mesh.rotation.y = -100; 
+	this.mesh.position = new THREE.Vector3((x_pos * len_side) - (window.innerHeight), (y_pos * len_side) - (window.innerWidth/4), 0);
 }
 
 //=============================================================================
@@ -419,8 +419,8 @@ var main = function() {
 
 	camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000 );
 	camera.position.z = 1000;
-	camera.position.x = 500;
-	camera.position.y = 500;
+	// camera.position.x = 500;
+	// camera.position.y = 500;
 	//scene = new THREE.Scene();
 
 	// for (var i = 0; i < grid.length; i++){
@@ -431,8 +431,14 @@ var main = function() {
 	// 	}
 	// }
 
+	// g = new THREE.CubeGeometry( 200, 200, 200 );
+	// m = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true, wireframeLinewidth: 2 } );
 
-	//renderer.render(scene,camera);
+	// me = new THREE.Mesh( g, m );
+	// var scene = new THREE.Scene();
+	// me.position = new THREE.Vector3(-200, -200, 0);
+	// scene.add( me );
+	// renderer.render(scene,camera);
 
 
 
