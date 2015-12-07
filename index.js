@@ -9,7 +9,7 @@ deathOver = 0; // Total deaths due to overpopulation
 deathUnder = 0; // Total deaths due to underpopulation
 deathToll = 0; // Total deaths overall
 var cena_textures = ["textures/cena_textures/1.jpg","textures/cena_textures/2.jpg","textures/cena_textures/3.jpg","textures/cena_textures/4.jpg", "textures/cena_textures/5.jpg", "textures/cena_textures/6.jpg"];
-var color_textures = ["textures/color_textures/3.jpg","textures/color_textures/3.jpg","textures/color_textures/3.jpg","textures/color_textures/3.jpg", "textures/color_textures/3.jpg", "textures/color_textures/3.jpg"];
+var color_textures = ["textures/color_textures/1.jpg","textures/color_textures/2.jpg","textures/color_textures/3.jpg","textures/color_textures/4.jpg", "textures/color_textures/5.jpg", "textures/color_textures/6.jpg"];
 //initialize audio
 var conwayAudio = document.createElement('audio');
 conwayAudio.volume = .4;
@@ -66,8 +66,81 @@ function pause_button() {
 function cubeObj(t_Int, s, x_pos, y_pos) {
 	var len_side = 50;
 	var geometry = new THREE.CubeGeometry( len_side, len_side, len_side );
-	//var material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture("textures/color_textures/3.jpg") } );
-	var material = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true, wireframeLinewidth: 2 }  );
+    var material;
+    var textureInt = Math.floor(Math.random() * 6);
+    
+    if (document.getElementById("modeButton").value = "Conway's")//conway textures
+    {
+        switch(textureInt)
+        {
+            case 0:
+            {
+                material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture("textures/color_textures/1.jpg") } );
+                break;
+            }
+            case 1:
+            {
+                material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture("textures/color_textures/2.jpg") } );
+                break;
+            }
+            case 2:
+            {
+                material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture("textures/color_textures/3.jpg") } );
+                break;
+            }
+            case 3:
+            {
+                material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture("textures/color_textures/4.jpg") } );
+                break;
+            }
+            case 4:
+            {
+                material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture("textures/color_textures/5.jpg") } );
+                break;
+            }
+            case 5:
+            {
+                material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture("textures/color_textures/6.jpg") } );
+                break;
+            }
+        }
+    }
+    else//cena textures
+    {
+        switch(textureInt)
+        {
+            case 0:
+            {
+                material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture("textures/cena_textures/1.jpg") } );
+                break;
+            }
+            case 1:
+            {
+                material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture("textures/cena_textures/2.jpg") } );
+                break;
+            }
+            case 2:
+            {
+                material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture("textures/cena_textures/3.jpg") } );
+                break;
+            }
+            case 3:
+            {
+                material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture("textures/cena_textures/4.jpg") } );
+                break;
+            }
+            case 4:
+            {
+                material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture("textures/cena_textures/5.jpg") } );
+                break;
+            }
+            case 5:
+            {
+                material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture("textures/cena_textures/6.jpg") } );
+                break;
+            }
+        }
+    }
 	
 	this.textureInt = t_Int;
 	this.state = s;
