@@ -27,6 +27,9 @@ conwayAudio.appendChild(conwaySource);
 cenaAudio.appendChild(cenaSource);  
 cenaPiano.appendChild(cenaPianoSource);
 var camera, scene, renderer;
+var clock = new THREE.Clock();
+
+
 
 //=============================================================================
 function initialize_button() {
@@ -154,10 +157,10 @@ function deadOrAlive(x, y, nAlive) {
 function updateCube(x, y, gridNew) {
 	// First, check the states of all neighbors and tally up # alive/dead
 	var nAlive = 0; // # of neighbors alive
-	if (x > 0) { nAlive = deadOrAlive(x - 1, y, nAlive); }
-	if (x < gridWidth-1) { nAlive = deadOrAlive(x + 1, y, nAlive); }
-	if (y > 0) { nAlive = deadOrAlive(x, y - 1, nAlive); }
-	if (y < gridWidth-1) { nAlive = deadOrAlive(x, y + 1, nAlive); }
+	if (x > 0) { nAlive += deadOrAlive(x - 1, y, nAlive); }
+	if (x < gridWidth-1) { nAlive += deadOrAlive(x + 1, y, nAlive); }
+	if (y > 0) { nAlive += deadOrAlive(x, y - 1, nAlive); }
+	if (y < gridWidth-1) { nAlive += deadOrAlive(x, y + 1, nAlive); }
 
 	if (grid[x][y]) { // if the cell is alive
 		// Rule 1: Any live cell with fewer than two live neighbours dies, as if caused by under-population.
@@ -275,17 +278,10 @@ var main = function() {
 	initGrid(true);
 	updateGrid();
 
-	// if (grid[0][0].state == true){
-	// 	console.log("THIS IS TRUEEEEE");
-	// 	 scene.add( grid[0][0].mesh );
-
-	// }
 
 	for (var i = 0; i < grid.length; i++){
 		for (var j = 0; j < grid[i].length; ++j){
 			if (grid[i][j].state == true){
-				console.log("x = " + grid[i][j].mesh.position.x);
-				console.log("y = " + grid[i][j].mesh.position.y);
 				scene.add( grid[i][j].mesh );
 			}
 		}
@@ -293,19 +289,36 @@ var main = function() {
 
 	renderer.render(scene,camera);
 
-	// function render (){
-	// 	requestAnimationFrame(render);
-	// 	camera.rotation.x +=.01;
-	// 	camera.rotation.y += .04;
-
-
-	// 	renderer.render(scene,camera);
-	// }
-
-	// render();
 
 
 };
+
+function render() {
+
+	// var delta = clock.getDelta(),
+	// 	time = clock.getElapsedTime() * 1000;
+
+	updateGrid();
+
+	for (var i = 0; i < grid.length; i++){
+		for (var j = 0; j < grid[i].length; ++j){
+			if (grid[i][j].state == true){
+				scene.add( grid[i][j].mesh );
+			}
+		}
+	}
+
+
+	renderer.render( scene, camera );
+
+}
+
+function animate() {
+	requestAnimationFrame( animate );
+
+	render();
+
+}
 
 conwayAudio.addEventListener("ended", function(e){conwayAudio.play();}, false);
 cenaAudio.addEventListener("ended", function(e){cenaPiano.play();}, false);
