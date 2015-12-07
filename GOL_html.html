@@ -33,19 +33,16 @@
 		
 		<!-- fyi use this in the javascript to change text -->
 		<!-- http://stackoverflow.com/questions/10671174/changing-button-text-onclick -->
-		<p>
-			This is the final graphics project for Kathryn DiPippo, Marina Espinoza, Darien Keyack, Alexander Mohr, and Kathrine Ryan.
-		</p>
-
+		<p style="font-size:12px"> This is the final graphics project for Kathryn DiPippo, Marina Espinoza, Darien Keyack, Alexander Mohr, and Kathrine Ryan. </p>
 
 		<p>
 			<script type="text/javascript" src="index.js"></script>
 			<strong>Rules:</strong>
 			<ul>
-				<li>Any live cell with less than two live neighbors dies       (underpopulation)</li>
-				<li>Any live cell with two or three neighbors continues living</li>
-				<li>Any live cell with more than three neighbors lives         (overpopulation)</li>
-				<li>Any empty cell with three live neighbors becomes alive     (reproduction)</li>
+				<li style="font-size:12px"><pre>Any live cell with less than two live neighbors dies       (underpopulation)</li></pre>
+				<li style="font-size:12px"><pre>Any live cell with two or three neighbors continues living</li></pre>
+				<li style="font-size:12px"><pre>Any live cell with more than three neighbors lives         (overpopulation)</li></pre>
+				<li style="font-size:12px"><pre>Any empty cell with three live neighbors becomes alive     (reproduction)</li></pre>
 			</ul>
 		</p>
 		
@@ -96,24 +93,13 @@
 				</td> -->
 				<td>
 					<h3>Current Values:</h3>
-					<p>Generation:<font color="#00ff00"> <!-- green -->
-					<input type="text" id="gen_">
-					<div id="gen_1"></div></p></font>
-					<p>Cubes Currently Alive:<font color="#0000ff"> <!-- blue -->
-					<input type="text" id="alives_">
-					<div id="alives_1"></div></p></font>
-					<p>Death Toll (total):<font color="#ff0000">
-					<input type="text" id="deads_">
-					<div id="deads_1"></div></p></font>
-					<p>Death toll (by underpopulation):<font color="#ff0000">
-					<input type="text" id="under_">
-					<div id="under_1"></div></p></font>
-					<p>Death toll (by overpopulation):<font color="#ff0000"> <!-- red -->
-					<input type="text" id="over_">
-					<div id="over_1"></div></p></font>
-					<p><input type="button" id="play_butt" value="Play" onClick="myTimer = setInterval(render, 1000)"/>
+					<p style="font-size:12px">Generation: <input type="text" id="gen_" maxlength="4" size="4" style="background-color:#A9A9F5; font-size:12px"></p>
+					<p style="font-size:12px">Cubes Currently Alive: <input type="text" id="alives_" maxlength="4" size="4" style="background-color:#A9F5A9; font-size:12px"></p>
+					<p style="font-size:12px">Death Toll (total): <input type="text" id="deads_" maxlength="4" size="4" style="background-color:#F5A9A9; font-size:12px"></p>
+					<p style="font-size:12px">Death toll (by underpopulation): <input type="text" id="under_" maxlength="4" size="4" style="background-color:#F5A9A9; font-size:12px"></p>
+					<p style="font-size:12px">Death toll (by overpopulation): <input type="text" id="over_" maxlength="4" size="4" style="background-color:#F5A9A9; font-size:12px"></p>
+					<p style="font-size:12px"><input type="button" id="play_butt" value="Play" onClick="myTimer = setInterval(render, 3000)"/>
 					<input type="button" id="pause_butt" value="Pause" onClick="clearInterval(myTimer)"/></p>
-					
 				</td>
 			</tr></table>
 			<p></p>
