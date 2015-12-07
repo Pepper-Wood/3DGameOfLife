@@ -267,7 +267,9 @@ var main = function() {
 				document.body.appendChild( renderer.domElement );
 
 	camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000 );
-	camera.position.z = 500;
+	camera.position.z = 1000;
+	camera.position.x = 500;
+	camera.position.y = 500;
 	scene = new THREE.Scene();
 
 	initGrid(true);
