@@ -61,17 +61,18 @@ function pause_button() {
 
 //=============================================================================
 function cubeObj(t_Int, s, x_pos, y_pos) {
-	var geometry = new THREE.CubeGeometry( 200, 200, 200 );
-	var material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture("/home/marina/FALL2015/graphics/repo4/3DGameOfLife/textures/cena_textures/5.jpg") } );
-	//material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+	var len_side = 50;
+	var geometry = new THREE.CubeGeometry( len_side, len_side, len_side );
+	//var material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture("textures/color_textures/3.jpg") } );
+	var material = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true, wireframeLinewidth: 2 }  );
 	
 	this.textureInt = t_Int;
 	this.state = s;
 
 	this.mesh = new THREE.Mesh( geometry , material );
-	this.mesh.rotation.x = -100;
-	this.mesh.rotation.y = -100;
-	this.mesh.position = new THREE.Vector3(x_pos,y_pos);
+	// this.mesh.rotation.x = -100;
+	// this.mesh.rotation.y = -100;
+	this.mesh.position = new THREE.Vector3(x_pos * len_side, y_pos * len_side, 0);
 }
 
 //=============================================================================
@@ -262,10 +263,10 @@ var main = function() {
     conwayAudio.play();
 
     renderer = new THREE.CanvasRenderer();
-				renderer.setSize( 700, 500 );
+				renderer.setSize( window.innerWidth , window.innerHeight );
 				document.body.appendChild( renderer.domElement );
 
-	camera = new THREE.PerspectiveCamera( 75, 700 / 500, 1, 1000 );
+	camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000 );
 	camera.position.z = 500;
 	scene = new THREE.Scene();
 
@@ -284,14 +285,22 @@ var main = function() {
 				console.log("x = " + grid[i][j].mesh.position.x);
 				console.log("y = " + grid[i][j].mesh.position.y);
 				scene.add( grid[i][j].mesh );
-				break;
 			}
 		}
-		break;
 	}
 
+	renderer.render(scene,camera);
 
-	renderer.render( scene, camera );
+	// function render (){
+	// 	requestAnimationFrame(render);
+	// 	camera.rotation.x +=.01;
+	// 	camera.rotation.y += .04;
+
+
+	// 	renderer.render(scene,camera);
+	// }
+
+	// render();
 
 
 };

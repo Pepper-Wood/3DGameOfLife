@@ -31,7 +31,9 @@
 				scene = new THREE.Scene();
 
 				geometry = new THREE.CubeGeometry( 200, 200, 200 );
-				material = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true, wireframeLinewidth: 2 } );
+				material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture("textures/cena_textures/3.jpg") } );
+
+				//material = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true, wireframeLinewidth: 2 } );
 
 				mesh = new THREE.Mesh( geometry, material );
 				mesh.rotation.x = -100;
