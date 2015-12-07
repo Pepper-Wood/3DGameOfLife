@@ -221,15 +221,15 @@ function updateGrid() {
 		for (var y = 0; y < gridHeight; ++y) {
 			// Display values on the html pageX
 			document.getElementById("gen_").value=gen;
-			document.getElementById("gen_1").innerHTML=gen;
+			//document.getElementById("gen_1").innerHTML=gen;
 			document.getElementById("alives_").value=cubesAlive;
-			document.getElementById("alives_1").innerHTML=cubesAlive;
+			//document.getElementById("alives_1").innerHTML=cubesAlive;
 			document.getElementById("deads_").value=deathToll;
-			document.getElementById("deads_1").innerHTML=deathToll;
+			//document.getElementById("deads_1").innerHTML=deathToll;
 			document.getElementById("under_").value=deathUnder;
-			document.getElementById("under_1").innerHTML=deathUnder;
+			//document.getElementById("under_1").innerHTML=deathUnder;
 			document.getElementById("over_").value=deathOver;
-			document.getElementById("over_1").innerHTML=deathOver;
+			//document.getElementById("over_1").innerHTML=deathOver;
 			updateCube(x, y, gridNew);
 		}
 	}
