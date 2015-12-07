@@ -205,11 +205,15 @@ function switchCubeState(x, y) {
 	if (grid[x][y].state) { // if the cube is currently alive
 		grid[x][y].state = false;
 		cubesAlive -= 1;
+        scene.remove(grid[x][y].mesh);
 	}
 	else {
+    
+        scene.add(grid[x][y].mesh);
 		grid[x][y].state = true;
 		cubesAlive += 1;
 	} 
+        renderer.render(scene, camera); 
 }
 
 
@@ -300,18 +304,6 @@ var main = function() {
 	scene = new THREE.Scene();
 
 	initGrid(false);
-
-
-	switchCubeState(3,3);
-	switchCubeState(3,2);
-	switchCubeState(3,4);
-
-	// switchCubeState(2,3);
-	// switchCubeState(3,3);
-	// switchCubeState(3,2);
-
-	//updateGrid();
-
 
 	for (var i = 0; i < grid.length; i++){
 		for (var j = 0; j < grid[i].length; ++j){
