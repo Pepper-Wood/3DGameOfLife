@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>John C's 3D Game Of Life</title>
+		<meta charset="utf-8">
+		<script type="text/javascript" src="RequestAnimationFrame.js"></script>
+		<script type="text/javascript" src="build/three.js"></script>
+		<script type="text/javascript" src="jquery-1.7.min.js"></script>
+		<script type="text/javascript" src="index.js" defer="defer"></script>
+		<style>
+			body {
+				font-family: Georgia, serif;
+				background-color: #e3e3e3;
+				margin: 0px;
+				padding: 10px
+				overflow: hidden;
+			}
+		</style>
+		<!-- Button Styling -->
+		<style type="text/css">
+			.button input {
+				color: #000;
+				background: #ffa20f;
+				border: 2px outset #d7b9c9
+			}
+		</style>
+	</head>
+	
+	<body>
+		<h1> John <input onclick="conwayButtonPress()" type="button" value="Conway's" id="modeButton"></input>  3D Game Of Life</h1>
+		
+		<p>
+			This is the final graphics project for Kathryn DiPippo, Marina Espinoza, Darien Keyack, Alexander Mohr, and Kathrine Ryan.
+		</p>
+
+		<p>
+			<strong>Rules:</strong>
+			<ul>
+				<li>Any live cell with less than two live neighbors dies       (underpopulation)</li>
+				<li>Any live cell with two or three neighbors continues living</li>
+				<li>Any live cell with more than three neighbors lives         (overpopulation)</li>
+				<li>Any empty cell with three live neighbors becomes alive     (reproduction)</li>
+			</ul>
+		</p>
+		
+		<!-- THE START OF THE DISPLAY CODE -->
+		<script src="build/three.min.js"></script>
+
+		<script>
+			var camera, scene, renderer;
+			var mesh;
+
+			init();
+			animate();
+
+			function init() {
+				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
+				camera.position.z = 400;
+
+				scene = new THREE.Scene();
+
+				var texture = THREE.ImageUtils.loadTexture( 'textures/crate.gif' );
+
+				var geometry = new THREE.BoxGeometry( 200, 200, 200 );
+				var material = new THREE.MeshBasicMaterial( { map: texture } );
+
+				mesh = new THREE.Mesh( geometry, material );
+				scene.add( mesh );
+
+				renderer = new THREE.WebGLRenderer();
+				//renderer.setPixelRatio( window.devicePixelRatio );
+				//renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.setSize( 300, 300 );
+				document.body.appendChild( renderer.domElement );
+
+				window.addEventListener( 'resize', onWindowResize, false );
+			}
+
+			function onWindowResize() {
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+			}
+
+			function animate() {
+				requestAnimationFrame( animate );
+				mesh.rotation.x += 0.005;
+				mesh.rotation.y += 0.01;
+				renderer.render( scene, camera );
+			}
+
+		</script>
+		<!-- END OF DISPLAY CODE -->
+
+		<!-- http://stackoverflow.com/questions/10671174/changing-button-text-onclick -->
+		<!-- fyi use this in the javascript to change text -->
+		<script>
+        function conwayButtonPress()
+        {
+            var elem = document.getElementById("modeButton");
+            if (elem.value == "Conway's") elem.value = "Cena's";
+            else elem.value = "Conway's";
+            
+        }
+        </script>
+		<!-- fyi use this in the javascript to change text -->
+		<!-- http://stackoverflow.com/questions/10671174/changing-button-text-onclick -->
+		
+		<!-- adds a divider to the file; this runs the actual application
+		<div id="gameoflife" style="border:1px solid #CCCCCC; margin:20px;"></div> -->
+		
+		<!-- bottom input things -->
+		<div id="controls">
+			<table border="1" cellpadding="10"><tr>
+				<td>
+					<h3>Grid Size:</h3>
+					<p>Width: <input type="text" id="gridWidth" name="fname"></p>
+					<p>Height: <input type="text" id="gridHeight" name="fname"></p>
+					
+					<!-- TO USE, ADD TO JAVASCRIPT:
+					var gridWidth = document.getElementById('gridWidth');
+					var gridHeight = document.getElementById('gridHeight');
+					-->
+					<p>Cube States: <select name="game_name" id="size">
+						<option value="10">All Dead</option>
+						<option value="20">Random</option>
+					</select></p>
+					
+					<input type="button" id="init" value="Initialize" onclick="initialize_button()"/>
+					
+				</td>
+				<td>
+					<!-- this might be difficult to do -->
+					<h3>Edit an Individual Cube:</h3>
+					<p>X: <input type="text" id="individ_x" name="fname"></p>
+					<p>Y: <input type="text" id="individ_y" name="fname"></p>
+					<input type="button" id="switcheroo" value="Switch Cube State" onclick="change_state_button()"/>
+
+					<!-- TO USE, ADD TO JAVASCRIPT:
+					var ???? = document.getElementById('gridWidth');
+					var ???? = document.getElementById('gridHeight');
+					-->
+				</td>
+				<!-- <td>
+					
+					<h3>Speed:</h3>
+					<select name="speed" id="speed">
+						<option value="1000">Slow (1 gen/sec)</option>
+						<option value="500">Medium (2 gen/sec)</option>
+						<option value="100">Fast (10 gen/sec)</option>
+						<option value="50">Ludicrous (20 gen/sec)</option>
+					</select>
+					<p><input type="button" id="start" value="Play" />
+					
+					<input type="button" id="reset" value="Randomize/Reset" /></p>
+				</td> -->
+				<!-- <td>
+					<h3>Current Values:</h3>
+					<p>Generation:<font color="#00ff00">
+					<script type="text/javascript">
+						document.write(System.Gadget.Settings.read("gen"));
+					</script></p></font>
+					<p>Cubes Currently Alive:<font color="#0000ff">
+					<script type="text/javascript">
+						 document.write(System.Gadget.Settings.read("cubesAlive"));
+					</script></p></font>
+					<p>Death Toll (total):<font color="#ff0000">
+					<script type="text/javascript">
+						document.write(System.Gadget.Settings.read("deathToll"));
+					</script></p></font>
+					<p>Death toll (by underpopulation):<font color="#ff0000">
+					<script type="text/javascript">
+						document.write(System.Gadget.Settings.read("deathUnder"));
+					</script></p></font>
+					<p>Death toll (by overpopulation):<font color="#ff0000">
+					<script type="text/javascript">
+						document.write(System.Gadget.Settings.read("deathOver"));
+					</script></p></font>
+					<p><input type="button" id="play_butt" value="Play" onclick="play_button()"/>
+					<input type="button" id="pause_butt" value="Pause" onclick="pause_button"/></p>
+					
+				</td> -->
+			</tr></table>
+			<p></p>
+			
+			<!-- <img src="PLAYING.png" name="pic" onclick="swap()"/>
+			<img src="PLAYING.png" onclick="this.src = this.src == playingImg ? muteImg : playingImg;"/> -->
+			
+			<img id="pic" onclick="volumeToggle()" src="textures\PLAYING.png">
+			<script>
+				function volumeToggle()
+                {
+                    var image = document.getElementById("pic");
+					if (image.src.match("textures/PLAYING.png")) image.src = "textures/MUTE.png";
+					else image.src = "textures/PLAYING.png";
+				}
+			</script>
+			<!-- Preset Games:
+			<select name="game_name" id="size">
+				<option value="10">Random</option>
+				<option value="20">The destroyer</option>
+				<option value="25">Death mechanics</option>
+			</select> -->
+				
+			<!-- <select name="size" id="size">
+				<option value="10">10x10x10</option>
+				<option value="20">15x15x15</option>
+				<option value="25">Medium (15625 cells)</option>
+			</select> -->
+		</div>
+	</body>
+</html>
