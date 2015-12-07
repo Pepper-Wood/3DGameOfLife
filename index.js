@@ -56,7 +56,7 @@ function cubeObj(textureInt, state, x_pos, y_pos) {
 
 //=============================================================================
 // Initialize the grid; if type == true, cubes will have random states, else all will be dead
-function initGrid(var type) {
+function initGrid(type) {
 	// Initialize the tracked stats
 	cubesAlive = 0;
 	gen = 0;
@@ -121,7 +121,7 @@ function initGrid(var type) {
 
 //=============================================================================
 // Check if a given cube is alive or dead, and update the appropriate given var
-function deadOrAlive(var x, var y, var nAlive) {
+function deadOrAlive(x, y, nAlive) {
 	if (grid[x][y].state == true) {
 		nAlive += 1;
 	}
@@ -130,7 +130,7 @@ function deadOrAlive(var x, var y, var nAlive) {
 
 //=============================================================================
 // Have a specific cube update its state according the rules
-function updateCube(var x, var y, var gridNew) {
+function updateCube(x, y, gridNew) {
 	// First, check the states of all neighbors and tally up # alive/dead
 	var nAlive = 0; // # of neighbors alive
 	if (x > 0) { nAlive = deadOrAlive(x - 1, y, neighbors); }
@@ -162,7 +162,7 @@ function updateCube(var x, var y, var gridNew) {
 
 //=============================================================================
 // Change a specific cube's state to be the opposite of what it currently is
-function switchCubeState(var x, var y) {
+function switchCubeState(x, y) {
 	if (grid[x][y].state) { // if the cube is currently alive
 		grid[x][y].state = false;
 		cubesAlive -= 1;
@@ -187,7 +187,7 @@ function updateGrid() {
 
 //=============================================================================
 //=============================================================================
-window.onload = function init() {
+var main = function() {
 	// * VERY IMPORTANT STUFF GOES HERE YOU SHOULD ADD IT * //
     
     //initialize and play music, starting with conway music
@@ -198,6 +198,10 @@ window.onload = function init() {
     //conwaySource.src = 'whatever.mp3';
     cenaSource.src = 'sounds/AND_HIS_NAME_IS_JOHN_CENA.wav';
     
-    conwayAudio.appendChild(source);
-    conwayAudio.play();    
+    // conwayAudio.appendChild(source);
+    // conwayAudio.play();    
+    cenaAudio.appendChild(cenaSource);
+    cenaAudio.play();  
 };
+
+window.addEventListener( 'load', main, true );
