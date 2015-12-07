@@ -71,6 +71,7 @@ function cubeObj(t_Int, s, x_pos, y_pos) {
 	
 	this.textureInt = t_Int;
 	this.state = s;
+    this.newState = s;
 
 	this.mesh = new THREE.Mesh( geometry , material );
 	// this.mesh.rotation.x = -100;
@@ -152,6 +153,15 @@ function deadOrAlive(x, y, nAlive) {
 	return nAlive;
 }
 
+function newFunctionThing(x, y, gridNew)
+{
+    if (gridNew[x][y].state != gridNew[x][y].newState)
+    {
+        console.log(x + "," + y);
+        
+    gridNew[x][y].state = gridNew[x][y].newState;
+    }
+}
 //=============================================================================
 // Have a specific cube update its state according the rules
 function updateCube(x, y, gridNew) {
@@ -162,27 +172,30 @@ function updateCube(x, y, gridNew) {
 	if (y > 0) { nAlive = deadOrAlive(x, y - 1, nAlive); } // below
 	if (y < gridHeight - 1) { nAlive = deadOrAlive(x, y + 1, nAlive); } // above
 	if (x > 0 && y > 0) { nAlive = deadOrAlive(x - 1, y - 1, nAlive); } // left-below
-	if (x > 0 && y < gridWidth - 1) { nAlive = deadOrAlive(x - 1, y + 1, nAlive); } // left-above
+	if (x > 0 && y < gridHeight - 1) { nAlive = deadOrAlive(x - 1, y + 1, nAlive); } // left-above
 	if (x < gridWidth - 1 && y > 0) { nAlive = deadOrAlive(x + 1, y - 1, nAlive); } // right-below
 	if (x < gridWidth - 1 && y < gridHeight - 1) { nAlive = deadOrAlive(x + 1, y + 1, nAlive); } // right-above
-
+    
 	if (grid[x][y]) { // if the cell is alive
 		// Rule 1: Any live cell with fewer than two live neighbours dies, as if caused by under-population.
 		// Rule 3: Any live cell with more than three live neighbours dies, as if by over-population.
 		if (nAlive < 2 || nAlive > 3) {
-			gridNew[x][y].state = false;
+			gridNew[x][y].newState = false;
 			deathToll += 1;
 			cubesAlive -= 1;
 			if (nAlive < 2) { deathUnder += 1; } // Rule 1
 			else { deathOver += 1; } // Rule 2
 		}
+        else
+        {
+            gridNew[x][y].newState = true;
+        }   
 		// Rule 2: Any live cell with two or three live neighbours lives on to the next generation.
 	}
-	
 	else { // if the cell is dead
 		// Rule 4: Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 		if (nAlive == 3) {
-			gridNew[x][y].state = true;
+			gridNew[x][y].newState = true;
 			cubesAlive += 1;
 		}
 	}
@@ -222,6 +235,14 @@ function updateGrid() {
 			updateCube(x, y, gridNew);
 		}
 	}
+    
+    for (var x = 0; x < gridWidth; x++)
+    {
+        for (var y = 0; y < gridHeight; y++)
+        {
+            newFunctionThing(x, y, gridNew);
+        }
+    }
 	grid = gridNew.slice();
 }
 
@@ -283,13 +304,13 @@ var main = function() {
 	initGrid(false);
 
 
+	switchCubeState(3,3);
+	switchCubeState(3,2);
+	switchCubeState(3,4);
+
+	// switchCubeState(2,3);
 	// switchCubeState(3,3);
 	// switchCubeState(3,2);
-	// switchCubeState(3,4);
-
-	switchCubeState(1,1);
-	switchCubeState(2,1);
-	switchCubeState(1,2);
 
 	//updateGrid();
 
