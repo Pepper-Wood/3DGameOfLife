@@ -1,17 +1,15 @@
 // * SOME JS INITIALIZATION STUFF GOES HERE PROBABLY MAYBE? *
 
 var grid = []; // Grid containing all the cubes
-// var gridWidth = 20;
-// var gridHeight = 20;
-var gridWidth;
-var gridHeight;
+var gridWidth = 20;
+var gridHeight = 20;
 cubesAlive = 0;
 gen = 0; // Current generation/iteration number
 deathOver = 0; // Total deaths due to overpopulation
 deathUnder = 0; // Total deaths due to underpopulation
 deathToll = 0; // Total deaths overall
-var cena_textures = [];// = ["textures/cena_textures/1.jpg","textures/cena_textures/2.jpg","textures/cena_textures/3.jpg","textures/cena_textures/4.jpg", "textures/cena_textures/5.jpg", "textures/cena_textures/6.jpg"];
-var color_textures = [];// = ["textures/color_textures/1.jpg","textures/color_textures/2.jpg","textures/color_textures/3.jpg","textures/color_textures/4.jpg", "textures/color_textures/5.jpg", "textures/color_textures/6.jpg"];
+var cena_textures = ["textures/cena_textures/1.jpg","textures/cena_textures/2.jpg","textures/cena_textures/3.jpg","textures/cena_textures/4.jpg", "textures/cena_textures/5.jpg", "textures/cena_textures/6.jpg"];
+var color_textures = ["textures/color_textures/1.jpg","textures/color_textures/2.jpg","textures/color_textures/3.jpg","textures/color_textures/4.jpg", "textures/color_textures/5.jpg", "textures/color_textures/6.jpg"];
 //initialize audio
 var conwayAudio = document.createElement('audio');
 conwayAudio.volume = .4;
@@ -30,24 +28,26 @@ cenaAudio.appendChild(cenaSource);
 cenaPiano.appendChild(cenaPianoSource);
 var camera, scene, renderer;
 var clock = new THREE.Clock();
+var mouseX = 0;
+var mouseY = 0;
+document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+var windowHalfX = window.innerWidth / 2;
+var windowHalfY = window.innerHeight / 2;
 
 
 
 //=============================================================================
 function initialize_button() {
-	gridWidth = document.getElementById("gridWidth").value;
-	gridHeight = document.getElementById("gridHeight").value;
+	var gridWidth = document.getElementById("gridWidth").value;
+	var gridHeight = document.getElementById("gridHeight").value;
 	
 	// if bool is true, then random. If false, then all dead
 	if (document.getElementById("size").value == 10) { // ALL DEAD
 		initGrid(false);
-		render(false);
 	} else if (document.getElementById("size").value == 20) { // RANDOM
 		initGrid(true);
-		render(false);
 	} else {
 		initGrid(true);
-		render(false);
 	}
 }
 
@@ -74,7 +74,7 @@ function cubeObj(t_Int, s, x_pos, y_pos) {
     var material;
     var textureInt = Math.floor(Math.random() * 6);
     
-    if (document.getElementById("modeButton").value == "Conway's")//conway textures
+    if (document.getElementById("modeButton").value = "Conway's")//conway textures
     {
         switch(textureInt)
         {
@@ -146,15 +146,7 @@ function cubeObj(t_Int, s, x_pos, y_pos) {
             }
         }
     }
-    
-    this.meshChange = function(mat)
-    {
-        this.mesh = new THREE.Mesh(this.geometry,mat);
-        this.mesh.position = new THREE.Vector3(this.x_pos * this.len_side, this.y_pos * this.len_side, 0);
-    }
-    
-    
-    
+	
 	this.textureInt = t_Int;
 	this.state = s;
     this.newState = s;
@@ -183,10 +175,10 @@ function initGrid(type) {
 	var state = false;
 	var stateInt;
 
-	for (var x = 0; x < gridHeight; ++x) {
+	for (var y = 0; y < gridHeight; ++y) {
 		newRow = [];
 		
-		for (var y = 0; y < gridWidth; ++y) {
+		for (var x = 0; x < gridWidth; ++x) {
 			// Randomize state (if applicable)
 			if (type) {
 				stateInt = Math.floor(Math.random()*2);
@@ -203,23 +195,23 @@ function initGrid(type) {
 			
 			if (x == 0 && y == 0) { // upper left corner
 			}
-			else if (y > 0 && x == 0) { // first row
-				while (newRow[y - 1].textureInt == textureNew) {
+			else if (x > 0 && y == 0) { // first row
+				while (newRow[x - 1].textureInt == textureNew) {
 					textureNew = Math.floor(Math.random()*6);
 				}
 			}
-			else if (y == 0 && x > 0) { // first cube in all rows after the 1st
-				while (grid[x - 1][y].textureInt == textureNew) {
+			else if (x == 0 && y > 0) { // first cube in all rows after the 1st
+				while (grid[y - 1][x].textureInt == textureNew) {
 					textureNew = Math.floor(Math.random()*6);
 				}
 			}
-			else if (x > 0 && y > 0 && y < gridWidth) { // all rows but first and last, not first in row
-				while (newRow[y - 1].textureInt == textureNew || grid[x - 1][y].textureInt == textureNew) {
+			else if (x > 0 && y > 0 && y < gridHeight) { // all rows but first and last, not first in row
+				while (newRow[x - 1].textureInt == textureNew || grid[y - 1][x].textureInt == textureNew) {
 					textureNew = Math.floor(Math.random()*6);
 				}
 			}
-			else if (y > 0 && x == gridHeight) { // last row
-				while (newRow[y - 1].textureInt == textureNew) {
+			else if (x > 0 && y == gridHeight) { // last row
+				while (newRow[x - 1].textureInt == textureNew) {
 					textureNew = Math.floor(Math.random()*6);
 				}
 			}
@@ -252,13 +244,13 @@ function updateCube(x, y, gridNew) {
 	// First, check the states of all neighbors and tally up # alive/dead
 	var nAlive = 0; // # of neighbors alive
 	if (x > 0) { nAlive = deadOrAlive(x - 1, y, nAlive); } // left
-	if (x < gridHeight - 1) { nAlive = deadOrAlive(x + 1, y, nAlive); } // right
+	if (x < gridWidth - 1) { nAlive = deadOrAlive(x + 1, y, nAlive); } // right
 	if (y > 0) { nAlive = deadOrAlive(x, y - 1, nAlive); } // below
-	if (y < gridWidth - 1) { nAlive = deadOrAlive(x, y + 1, nAlive); } // above
+	if (y < gridHeight - 1) { nAlive = deadOrAlive(x, y + 1, nAlive); } // above
 	if (x > 0 && y > 0) { nAlive = deadOrAlive(x - 1, y - 1, nAlive); } // left-below
-	if (x > 0 && y < gridWidth - 1) { nAlive = deadOrAlive(x - 1, y + 1, nAlive); } // left-above
-	if (x < gridHeight - 1 && y > 0) { nAlive = deadOrAlive(x + 1, y - 1, nAlive); } // right-below
-	if (x < gridHeight - 1 && y < gridWidth - 1) { nAlive = deadOrAlive(x + 1, y + 1, nAlive); } // right-above
+	if (x > 0 && y < gridHeight - 1) { nAlive = deadOrAlive(x - 1, y + 1, nAlive); } // left-above
+	if (x < gridWidth - 1 && y > 0) { nAlive = deadOrAlive(x + 1, y - 1, nAlive); } // right-below
+	if (x < gridWidth - 1 && y < gridHeight - 1) { nAlive = deadOrAlive(x + 1, y + 1, nAlive); } // right-above
     
 	if (grid[x][y].state) { // if the cell is alive
 		// Rule 1: Any live cell with fewer than two live neighbours dies, as if caused by under-population.
@@ -302,16 +294,17 @@ function switchCubeState(x, y) {
         renderer.render(scene, camera); 
 }
 
+
 //=============================================================================
 // Update the states of the entire grid
 function updateGrid() {
 	var gridNew = grid.slice();
-	for (var x = 0; x < gridHeight; ++x) {
-		for (var y = 0; y < gridWidth; ++y) {
+	for (var x = 0; x < gridWidth; ++x) {
+		for (var y = 0; y < gridHeight; ++y) {
 			// Display values on the html pageX
 			document.getElementById("gen_").value=gen;
 			document.getElementById("alives_").value=cubesAlive;
-			var ratio_num = 100 * (cubesAlive / (gridHeight * gridWidth)).toFixed(2);
+			var ratio_num = (cubesAlive / (gridWidth * gridHeight)).toFixed(2);
 			document.getElementById("ratio_").value=ratio_num;
 			document.getElementById("deads_").value=deathToll;
 			document.getElementById("under_").value=deathUnder;		
@@ -320,32 +313,14 @@ function updateGrid() {
 		}
 	}
     
-    for (var x = 0; x < gridHeight; x++)
+    for (var x = 0; x < gridWidth; x++)
     {
-        for (var y = 0; y < gridWidth; y++)
+        for (var y = 0; y < gridHeight; y++)
         {
             stateChange(x, y, gridNew);
         }
     }
 	grid = gridNew.slice();
-}
-
-function textureUpdate()
-{
-
-    for (var x = 0; x < gridHeight; ++x) {
-		for (var y = 0; y < gridWidth; ++y) {
-			// grid[x][y].changeTexture();
-
-            scene.remove(grid[x][y].mesh);
-            var temp = new cubeObj(0, grid[x][y].state, y, x);
-            grid[x][y] = temp;
-            if (grid[x][y].state)
-            {
-                scene.add(grid[x][y].mesh);
-            }
-        }
-    }
 }
 
 function conwayButtonPress()
@@ -367,9 +342,6 @@ function conwayButtonPress()
         cenaPiano.currentTime = 0;
         conwayAudio.play();
     }
-    
-    textureUpdate();
-    renderer.render(scene, camera);
 }
 
 function volumeToggle()
@@ -393,18 +365,7 @@ function volumeToggle()
 //=============================================================================
 //=============================================================================
 var main = function() {
-    var conway = "textures/conway_textures/";
-    var cena = "textures/cena_textures/";
-    for (var i = 0; i < 6; i++)
-    {
-        var temp = conway.concat(i.toString(), ".jpg");
-        var texture = THREE.ImageUtils.loadTexture( temp, {}, function(){ renderer.render(scene, camera); } );
-        color_textures.push(texture);
-        var temp = cena.concat(i.toString(), ".jpg");
-        var texture = THREE.ImageUtils.loadTexture( temp, {}, function(){ renderer.render(scene, camera); } );
-        cena_textures.push(texture);
-        
-    }
+	// * VERY IMPORTANT STUFF GOES HERE YOU SHOULD ADD IT * //
     conwayAudio.play();
 
     renderer = new THREE.CanvasRenderer();
@@ -415,44 +376,54 @@ var main = function() {
 	camera.position.z = 1000;
 	camera.position.x = 500;
 	camera.position.y = 500;
-	//scene = new THREE.Scene();
-
-	// for (var i = 0; i < grid.length; i++){
-	// 	for (var j = 0; j < grid[i].length; ++j){
-	// 		if (grid[i][j].state == true){
-	// 			scene.add( grid[i][j].mesh );
-	// 		}
-	// 	}
-	// }
-
-
-	//renderer.render(scene,camera);
-
-
-
-};
-
-function render(type = true) {
-
-	// var delta = clock.getDelta(),
-	// 	time = clock.getElapsedTime() * 1000;
-
-	if (type == true){
-		updateGrid();
-	}
 	scene = new THREE.Scene();
 
-	for (var i = 0; i < gridHeight; i++){
-		for (var j = 0; j < gridWidth; ++j){
+	initGrid(false);
+
+	for (var i = 0; i < grid.length; i++){
+		for (var j = 0; j < grid[i].length; ++j){
 			if (grid[i][j].state == true){
 				scene.add( grid[i][j].mesh );
 			}
 		}
 	}
-    
-    
+
+	renderer.render(scene,camera);
+
+
+
+};
+
+function render() {
+
+	// var delta = clock.getDelta(),
+	// 	time = clock.getElapsedTime() * 1000;
+
+	updateGrid();
+	scene = new THREE.Scene();
+	
+	var timer = 0.0001 * Date.now();
+
+	camera.position.x += ( mouseX - camera.position.x ) * .05;
+	camera.position.y += ( - mouseY - camera.position.y ) * .05;
+
+	camera.lookAt( scene.position );
+
+	for (var i = 0; i < grid.length; i++){
+		for (var j = 0; j < grid[i].length; ++j){
+			if (grid[i][j].state == true){
+				scene.add( grid[i][j].mesh );
+			}
+		}
+	}
+
 	renderer.render( scene, camera );
 
+}
+
+function onDocumentMouseMove(event) {
+	mouseX = ( event.clientX - windowHalfX ) * 10;
+	mouseY = ( event.clientY - windowHalfY ) * 10;
 }
 
 function animate() {
