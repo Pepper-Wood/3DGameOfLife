@@ -26,15 +26,18 @@ cenaPianoSource.src = 'sounds/cena_piano.mp3';
 conwayAudio.appendChild(conwaySource);
 cenaAudio.appendChild(cenaSource);  
 cenaPiano.appendChild(cenaPianoSource);
+
 //=============================================================================
 function initialize_button() {
 	var gridWidth = document.getElementById("gridWidth").value;
 	var gridHeight = document.getElementById("gridHeight").value;
 	
 	// if bool is true, then random. If false, then all dead
-	if (document.getElementById("game_name").value == 10) { // ALL DEAD
+	if (document.getElementById("size").value == 10) { // ALL DEAD
 		initGrid(false);
-	} else if (document.getElementById("game_name").value == 20) { // RANDOM
+	} else if (document.getElementById("size").value == 20) { // RANDOM
+		initGrid(true);
+	} else {
 		initGrid(true);
 	}
 }
@@ -87,10 +90,10 @@ function initGrid(type) {
 	var state = false;
 	var stateInt;
 
-	for (var x = 0; x < gridWidth; ++x) {
+	for (var y = 0; y < gridHeight; ++y) {
 		newRow = [];
 		
-		for (var y = 0; y < gridLength; ++y) {
+		for (var x = 0; x < gridWidth; ++x) {
 			// Randomize state (if applicable)
 			if (type) {
 				stateInt = Math.floor(Math.random()*2);
@@ -104,30 +107,30 @@ function initGrid(type) {
 			}
 			// Randomize texture
 			textureNew = Math.floor(Math.random()*6);			
+			
 			if (x == 0 && y == 0) { // upper left corner
-				break;
 			}
 			else if (x > 0 && y == 0) { // first row
-				while (grid[x - 1][y].textureInt == textureNew) {
+				while (newRow[x - 1].textureInt == textureNew) {
 					textureNew = Math.floor(Math.random()*6);
 				}
 			}
 			else if (x == 0 && y > 0) { // first cube in all rows after the 1st
-				while (grid[x][y - 1].textureInt == textureNew) {
+				while (grid[y - 1][x].textureInt == textureNew) {
 					textureNew = Math.floor(Math.random()*6);
 				}
 			}
 			else if (x > 0 && y > 0 && y < gridHeight) { // all rows but first and last, not first in row
-				while (grid[x - 1][y].textureInt == textureNew || grid[x][y - 1].textureInt == textureNew) {
+				while (newRow[x - 1].textureInt == textureNew || grid[y - 1][x].textureInt == textureNew) {
 					textureNew = Math.floor(Math.random()*6);
 				}
 			}
 			else if (x > 0 && y == gridHeight) { // last row
-				while (grid[x - 1][y].textureInt == textureNew) {
+				while (newRow[x - 1].textureInt == textureNew) {
 					textureNew = Math.floor(Math.random()*6);
 				}
 			}			
-			newCube = new cubeObj(textureInt, state, x, y);
+			newCube = new cubeObj(textureNew, state, x, y);
 			newRow.push(newCube);
 		}
 		grid.push(newRow);
@@ -194,6 +197,17 @@ function updateGrid() {
 	var gridNew = grid;
 	for (var x = 0; x < gridWidth; ++x) {
 		for (var y = 0; y < gridHeight; ++y) {
+			// Display values on the html pageX
+			document.getElementsById("gen_").value=gen;
+			document.getElementById("gen_1").innerHTML=gen;
+			document.getElementsById("alives_").value=cubesAlive;
+			document.getElementById("alives_1").innerHTML=cubesAlive;
+			document.getElementsById("deads_").value=deathToll;
+			document.getElementById("deads_1").innerHTML=deathToll;
+			document.getElementsById("under_").value=deathUnder;
+			document.getElementById("under_1").innerHTML=deathUnder;
+			document.getElementsById("over_").value=deathOver;
+			document.getElementById("over_1").innerHTML=deathOver;
 			updateCube(x, y);
 		}
 	}

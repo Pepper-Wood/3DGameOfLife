@@ -3,7 +3,7 @@
 	<head>
 		<title>John C's 3D Game Of Life</title>
 		<script type="text/javascript" src="RequestAnimationFrame.js"></script>
-		<script type="text/javascript" src="three.js/build/Three.js"></script>
+		<script type="text/javascript" src="build/three.js"></script>
 		<script type="text/javascript" src="jquery-1.7.min.js"></script>
 		<script type="text/javascript" src="index.js" defer="defer"></script>
 		<style>
@@ -97,25 +97,20 @@
 				<td>
 					<h3>Current Values:</h3>
 					<p>Generation:<font color="#00ff00"> <!-- green -->
-					<script type="text/javascript">
-						document.write(System.Gadget.Settings.read("gen"));
-					</script></p></font>
+					<input type="text" id="gen_">
+					<div id="gen_1"></div></p></font>
 					<p>Cubes Currently Alive:<font color="#0000ff"> <!-- blue -->
-					<script type="text/javascript">
-						 document.write(System.Gadget.Settings.read("cubesAlive"));
-					</script></p></font>
+					<input type="text" id="alives_">
+					<div id="alives_1"></div></p></font>
 					<p>Death Toll (total):<font color="#ff0000">
-					<script type="text/javascript">
-						document.write(System.Gadget.Settings.read("deathToll"));
-					</script></p></font>
+					<input type="text" id="deads_">
+					<div id="deads_1"></div></p></font>
 					<p>Death toll (by underpopulation):<font color="#ff0000">
-					<script type="text/javascript">
-						document.write(System.Gadget.Settings.read("deathUnder"));
-					</script></p></font>
+					<input type="text" id="under_">
+					<div id="under_1"></div></p></font>
 					<p>Death toll (by overpopulation):<font color="#ff0000"> <!-- red -->
-					<script type="text/javascript">
-						document.write(System.Gadget.Settings.read("deathOver"));
-					</script></p></font>
+					<input type="text" id="over_">
+					<div id="over_1"></div></p></font>
 					<p><input type="button" id="play_butt" value="Play" onclick="play_button()"/>
 					<input type="button" id="pause_butt" value="Pause" onclick="pause_button"/></p>
 					
