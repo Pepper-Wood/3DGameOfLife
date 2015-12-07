@@ -497,6 +497,32 @@ function animate() {
 
 }
 
+function handleScroll(slider) {
+    var part = slider.name;
+    var ori = slider.attributes["orien"].nodeValue;
+    var val = slider.value;
+    
+    // Find the node
+    var finder = new FindByNameVisitor( part );
+    root.accept( finder );
+
+    if (finder.found !== undefined) {
+        elem = finder.found;
+        switch (ori) { // (angle, x, y, z, result)
+            case 'x':
+                osg.Matrix.makeRotate(degToRad(val), 1.0, 0.0, 0.0, elem.getMatrix() );
+                break;
+            case'y':
+                osg.Matrix.makeRotate(degToRad(val), 0.0, 1.0, 0.0, elem.getMatrix() );
+                break;
+            case 'z':
+                osg.Matrix.makeRotate(degToRad(val), 0.0, 0.0, 1.0, elem.getMatrix() );
+                break;
+        }
+    }
+    
+}
+
 conwayAudio.addEventListener("ended", function(e){conwayAudio.play();}, false);
 cenaAudio.addEventListener("ended", function(e){cenaPiano.play();}, false);
 cenaPiano.addEventListener("ended", function(e){cenaPiano.play();}, false);
