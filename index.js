@@ -157,9 +157,7 @@ function newFunctionThing(x, y, gridNew)
 {
     if (gridNew[x][y].state != gridNew[x][y].newState)
     {
-        console.log(x + "," + y);
-        
-    gridNew[x][y].state = gridNew[x][y].newState;
+        gridNew[x][y].state = gridNew[x][y].newState;
     }
 }
 //=============================================================================
@@ -176,7 +174,7 @@ function updateCube(x, y, gridNew) {
 	if (x < gridWidth - 1 && y > 0) { nAlive = deadOrAlive(x + 1, y - 1, nAlive); } // right-below
 	if (x < gridWidth - 1 && y < gridHeight - 1) { nAlive = deadOrAlive(x + 1, y + 1, nAlive); } // right-above
     
-	if (grid[x][y]) { // if the cell is alive
+	if (grid[x][y].state) { // if the cell is alive
 		// Rule 1: Any live cell with fewer than two live neighbours dies, as if caused by under-population.
 		// Rule 3: Any live cell with more than three live neighbours dies, as if by over-population.
 		if (nAlive < 2 || nAlive > 3) {
@@ -189,12 +187,12 @@ function updateCube(x, y, gridNew) {
         else
         {
             gridNew[x][y].newState = true;
-        }   
+        }
 		// Rule 2: Any live cell with two or three live neighbours lives on to the next generation.
 	}
 	else { // if the cell is dead
 		// Rule 4: Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
-		if (nAlive == 3) {
+		if (nAlive == 3) {console.log(nAlive + " " + x + " " + y);
 			gridNew[x][y].newState = true;
 			cubesAlive += 1;
 		}
