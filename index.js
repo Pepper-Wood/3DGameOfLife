@@ -30,8 +30,8 @@ cenaAudio.appendChild(cenaSource);
 cenaPiano.appendChild(cenaPianoSource);
 var camera, scene, renderer;
 var clock = new THREE.Clock();
-
-
+var running = false;
+var myTimer;
 
 //=============================================================================
 function initialize_button() {
@@ -66,7 +66,19 @@ function play_button() {
 function pause_button() {
 	//DO STUFF
 }
+function play()
+{
+    if (!running) {
+        myTimer = setInterval(render, 500);
+        running = true;
+    }
+}
 
+function pause()
+{
+    clearInterval(myTimer);
+    running = false;
+}
 //=============================================================================
 function cubeObj(t_Int, s, x_pos, y_pos) {
 	var len_side = 50;
@@ -154,6 +166,7 @@ function cubeObj(t_Int, s, x_pos, y_pos) {
     {
         this.mesh = new THREE.Mesh(this.geometry,mat);
         this.mesh.position = new THREE.Vector3((x_pos * len_side) - (window.innerHeight), (y_pos * len_side) - (window.innerWidth/4), 0);
+
     }
     
     
@@ -281,7 +294,7 @@ function updateCube(x, y, gridNew) {
 	}
 	else { // if the cell is dead
 		// Rule 4: Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
-		if (nAlive == 3) {console.log(nAlive + " " + x + " " + y);
+		if (nAlive == 3) {
 			gridNew[x][y].newState = true;
 			cubesAlive += 1;
 		}
@@ -419,8 +432,10 @@ var main = function() {
 
 	camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000 );
 	camera.position.z = 1000;
+
 	// camera.position.x = 500;
 	// camera.position.y = 500;
+
 	//scene = new THREE.Scene();
 
 	// for (var i = 0; i < grid.length; i++){
