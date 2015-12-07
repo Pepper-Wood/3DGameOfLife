@@ -27,7 +27,7 @@
 
 	
 	<body>	
-		<h1> John <input onclick="conwayButtonPress()" type="button" value="Conway's" id="modeButton" style="font-size:20px; font-family: Georgia, serif"></input>  3D Game Of Life</h1>
+		<h1> John <input onclick="conwayButtonPress()" type="button" value="Conway's" id="modeButton" style="font-size:20px; font-family: Georgia, serif"></input> 3D Game Of Life</h1>
 		<!-- http://stackoverflow.com/questions/10671174/changing-button-text-onclick -->
 		<!-- fyi use this in the javascript to change text -->
 		
@@ -95,11 +95,15 @@
 					<h3>Current Values:</h3>
 					<p style="font-size:12px">Generation: <input type="text" id="gen_" maxlength="4" size="4" style="background-color:#A9A9F5; font-size:12px"></p>
 					<p style="font-size:12px">Cubes Currently Alive: <input type="text" id="alives_" maxlength="4" size="4" style="background-color:#A9F5A9; font-size:12px"></p>
+					<p style="font-size:12px">Percent Alive: <input type="text" id="ratio_" maxlength="4" size="4" style="background-color:#A9F5A9; font-size:12px"></p>
 					<p style="font-size:12px">Death Toll (total): <input type="text" id="deads_" maxlength="4" size="4" style="background-color:#F5A9A9; font-size:12px"></p>
 					<p style="font-size:12px">Death toll (by underpopulation): <input type="text" id="under_" maxlength="4" size="4" style="background-color:#F5A9A9; font-size:12px"></p>
 					<p style="font-size:12px">Death toll (by overpopulation): <input type="text" id="over_" maxlength="4" size="4" style="background-color:#F5A9A9; font-size:12px"></p>
-					<p style="font-size:12px"><input type="button" id="play_butt" value="Play" onClick="myTimer = setInterval(render, 500)"/>
-					<input type="button" id="pause_butt" value="Pause" onClick="clearInterval(myTimer)"/></p>
+					<p style="font-size:12px">
+						<input type="button" id="step_butt" value="Step" onClick="myTimer = setInterval(render, 500)"/> <!-- CHANGE ON_CLICK -->
+						<input type="button" id="play_butt" value="Play" onClick="myTimer = setInterval(render, 500)"/>
+						<input type="button" id="pause_butt" value="Pause" onClick="clearInterval(myTimer)"/>
+					</p>
 				</td>
 			</tr></table>
 			<p></p>
