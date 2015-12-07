@@ -332,13 +332,14 @@ function textureUpdate()
     {
         for (var y = 0; y < gridHeight; ++y)
         {
+            
+            scene.remove(grid[x][y].mesh);
             grid[x][y] = new cubeObj(0, grid[x][y].state, y, x);
             
-            // scene.remove(grid[x][y].mesh);
-            // if (grid[x][y].state)
-            // {
-                // scene.add(grid[x][y].mesh);
-            // }
+            if (grid[x][y].state)
+            {
+                scene.add(grid[x][y].mesh);
+            }
         }
     }
     renderer.render(scene, camera)
@@ -365,6 +366,7 @@ function conwayButtonPress()
     }
     
     textureUpdate();
+    renderer.render(scene, camera);
 }
 
 function volumeToggle()
