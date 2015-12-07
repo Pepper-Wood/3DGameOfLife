@@ -10,7 +10,15 @@ deathUnder = 0; // Total deaths due to underpopulation
 deathToll = 0; // Total deaths overall
 var cena_textures = ["textures/cena_textures/1.jpg","textures/cena_textures/2.jpg","textures/cena_textures/3.jpg","textures/cena_textures/4.jpg", "textures/cena_textures/5.jpg", "textures/cena_textures/6.jpg"];
 var color_textures = ["textures/color_textures/1.jpg","textures/color_textures/2.jpg","textures/color_textures/3.jpg","textures/color_textures/4.jpg", "textures/color_textures/5.jpg", "textures/color_textures/6.jpg"];
-
+//initialize audio
+var conwayAudio = document.createElement('audio');
+var conwaySource = document.createElement('source');
+var cenaAudio = document.createElement('audio');
+var cenaSource = document.createElement('source');
+conwaySource.src = 'sounds/AND_HIS_NAME_IS_JOHN_CENA.wav';
+cenaSource.src = 'sounds/AND_HIS_NAME_IS_JOHN_CENA.wav';
+conwayAudio.appendChild(conwaySource);
+cenaAudio.appendChild(cenaSource);  
 //=============================================================================
 function initialize_button() {
 	var gridWidth = document.getElementById("gridWidth").value;
@@ -185,23 +193,28 @@ function updateGrid() {
 	grid = gridNew;
 }
 
+function volumeToggle()
+{
+    
+    var image = document.getElementById("pic");
+    if (image.src.match("textures/PLAYING.png")) 
+    {
+        image.src = "textures/MUTE.png";
+        conwayAudio.volume = 0;
+        cenaAudio.volume = 0;
+    }
+    else 
+    {
+        image.src = "textures/PLAYING.png";
+        conwayAudio.volume = 1;
+        cenaAudio.volume = 1;
+    }
+}
 //=============================================================================
 //=============================================================================
 var main = function() {
 	// * VERY IMPORTANT STUFF GOES HERE YOU SHOULD ADD IT * //
-    
-    //initialize and play music, starting with conway music
-    var conwayAudio = document.createElement('audio');
-    var conwaySource = document.createElement('source');
-    var cenaAudio = document.createElement('audio');
-    var cenaSource = document.createElement('source');
-    //conwaySource.src = 'whatever.mp3';
-    cenaSource.src = 'sounds/AND_HIS_NAME_IS_JOHN_CENA.wav';
-    
-    // conwayAudio.appendChild(source);
-    // conwayAudio.play();    
-    cenaAudio.appendChild(cenaSource);
-    cenaAudio.play();  
+    conwayAudio.play();
 };
 
 window.addEventListener( 'load', main, true );

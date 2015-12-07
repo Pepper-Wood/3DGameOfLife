@@ -135,14 +135,6 @@
 			<img src="PLAYING.png" onclick="this.src = this.src == playingImg ? muteImg : playingImg;"/> -->
 			
 			<img id="pic" onclick="volumeToggle()" src="textures\PLAYING.png">
-			<script>
-				function volumeToggle()
-                {
-                    var image = document.getElementById("pic");
-					if (image.src.match("textures/PLAYING.png")) image.src = "textures/MUTE.png";
-					else image.src = "textures/PLAYING.png";
-				}
-			</script>
 			<!-- Preset Games:
 			<select name="game_name" id="size">
 				<option value="10">Random</option>
