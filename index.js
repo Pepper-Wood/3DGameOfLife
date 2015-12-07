@@ -141,7 +141,10 @@ function cubeObj(t_Int, s, x_pos, y_pos) {
             }
         }
     }
-	
+    
+    
+    
+    
 	this.textureInt = t_Int;
 	this.state = s;
     this.newState = s;
@@ -299,7 +302,7 @@ function updateGrid() {
 			// Display values on the html pageX
 			document.getElementById("gen_").value=gen;
 			document.getElementById("alives_").value=cubesAlive;
-			var ratio_num = (cubesAlive / (gridWidth * gridHeight)).toFixed(2);
+			var ratio_num = 100 * (cubesAlive / (gridWidth * gridHeight)).toFixed(2);
 			document.getElementById("ratio_").value=ratio_num;
 			document.getElementById("deads_").value=deathToll;
 			document.getElementById("under_").value=deathUnder;		
@@ -320,6 +323,18 @@ function updateGrid() {
 
 function conwayButtonPress()
 {
+    for (var x = 0; x < gridWidth; ++x) {
+		for (var y = 0; y < gridHeight; ++y) {
+			// grid[x][y].changeTexture();
+            scene.remove(grid[x][y].mesh);
+            grid[x][y] = new cubeObj(0, grid[x][y].state, y, x);
+            if (grid[x][y].state)
+            {
+                scene.add(grid[x][y].mesh);
+            }
+            renderer.render(scene, camera); 
+		}
+	}
     var elem = document.getElementById("modeButton");
     if (elem.value == "Conway's") 
     {
