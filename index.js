@@ -430,8 +430,10 @@ var main = function() {
 				renderer.setSize( window.innerWidth , window.innerHeight );
 				document.body.appendChild( renderer.domElement );
 
-	camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000 );
-	camera.position.z = 1000;
+	camera = new THREE.OrthographicCamera(75, window.innerWidth / window.innerHeight, 1, 1000 );
+	camera.position.x = 200;
+	camera.position.y = 200;
+	camera.position.z = 200;
 
 	// camera.position.x = 500;
 	// camera.position.y = 500;
@@ -477,6 +479,11 @@ function render(type = true) {
 		}
 	}
     
+	var timer = Date.now() * 0.000001;
+
+	camera.position.x = Math.cos( timer ) * 200;
+	camera.position.z = Math.sin( timer ) * 200;
+	camera.lookAt( scene.position );
     
 	renderer.render( scene, camera );
 
