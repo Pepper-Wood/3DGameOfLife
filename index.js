@@ -15,6 +15,7 @@ var conwayAudio = document.createElement('audio');
 conwayAudio.volume = .4;
 var conwaySource = document.createElement('source');
 var cenaAudio = document.createElement('audio');
+cenaAudio.volume = .8;
 var cenaSource = document.createElement('source');
 var cenaPiano = document.createElement('audio');
 cenaPiano.volume = .5;
@@ -234,7 +235,7 @@ function volumeToggle()
     {
         image.src = "textures/PLAYING.png";
         conwayAudio.volume = .4;
-        cenaAudio.volume = 1;
+        cenaAudio.volume = .8;
         cenaPiano.volume = .5;
     }
 }
