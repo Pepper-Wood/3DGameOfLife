@@ -193,6 +193,26 @@ function updateGrid() {
 	grid = gridNew;
 }
 
+function conwayButtonPress()
+{
+    var elem = document.getElementById("modeButton");
+    if (elem.value == "Conway's") 
+    {
+        elem.value = "Cena's";
+        conwayAudio.pause();
+        conwayAudio.currentTime = 0;
+        cenaAudio.play();
+    }
+    else 
+    {
+        elem.value = "Conway's";
+        cenaAudio.pause();
+        cenaAudio.currentTime = 0;
+        conwayAudio.play();
+    }
+    
+}
+
 function volumeToggle()
 {
     
