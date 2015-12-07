@@ -71,6 +71,8 @@ function cubeObj(t_Int, s, x_pos, y_pos) {
     
     if (document.getElementById("modeButton").value == "Conway's")//conway textures
     {
+        // material = color_textures[textureInt];
+        // material = new THREE.Texture(color_textures[textureInt]);
         switch(textureInt)
         {
             case 0:
@@ -107,6 +109,7 @@ function cubeObj(t_Int, s, x_pos, y_pos) {
     }
     else//cena textures
     {
+        // material = cena_textures[textureInt];
         switch(textureInt)
         {
             case 0:
@@ -331,13 +334,14 @@ function textureUpdate()
     {
         for (var y = 0; y < gridHeight; ++y)
         {
-            
             scene.remove(grid[x][y].mesh);
             var temp = new cubeObj(0, grid[x][y].state, y, x);
             grid[x][y] = temp;
+            
+            grid[x][y].needsUpdate = true;
             if (grid[x][y].state)
             {
-                scene.add(grid[x][y].mesh);
+               scene.add(grid[x][y].mesh);
             }
         }
     }
@@ -393,10 +397,10 @@ var main = function() {
     for (var i = 0; i < 6; i++)
     {
         var temp = conway.concat(i.toString(), ".jpg");
-        var texture = THREE.ImageUtils.loadTexture( temp, {}, function(){ renderer.render(scene, camera); } );
+        var texture = new THREE.ImageUtils.loadTexture( temp, {}, function(){ renderer.render(scene, camera); } );
         color_textures.push(texture);
         var temp = cena.concat(i.toString(), ".jpg");
-        var texture = THREE.ImageUtils.loadTexture( temp, {}, function(){ renderer.render(scene, camera); } );
+        var texture = new THREE.ImageUtils.loadTexture( temp, {}, function(){ renderer.render(scene, camera); } );
         cena_textures.push(texture);
         
     }
