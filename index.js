@@ -153,7 +153,7 @@ function deadOrAlive(x, y, nAlive) {
 	return nAlive;
 }
 
-function newFunctionThing(x, y, gridNew)
+function stateChange(x, y, gridNew)
 {
     if (gridNew[x][y].state != gridNew[x][y].newState)
     {
@@ -239,7 +239,7 @@ function updateGrid() {
     {
         for (var y = 0; y < gridHeight; y++)
         {
-            newFunctionThing(x, y, gridNew);
+            stateChange(x, y, gridNew);
         }
     }
 	grid = gridNew.slice();
