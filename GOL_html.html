@@ -26,8 +26,10 @@
 
 
 	
-	<body>	
+	<body>
+		<img id="pic" onclick="volumeToggle()" align="right" src="textures\PLAYING.png">
 		<h1> John <input onclick="conwayButtonPress()" type="button" value="Conway's" id="modeButton" style="font-size:20px; font-family: Georgia, serif"></input> 3D Game Of Life</h1>
+		
 		<!-- http://stackoverflow.com/questions/10671174/changing-button-text-onclick -->
 		<!-- fyi use this in the javascript to change text -->
 		
@@ -96,6 +98,7 @@
 					<p style="font-size:12px">Generation: <input type="text" id="gen_" maxlength="4" size="4" style="background-color:#A9A9F5; font-size:12px"></p>
 					<p style="font-size:12px">Cubes Currently Alive: <input type="text" id="alives_" maxlength="4" size="4" style="background-color:#A9F5A9; font-size:12px"></p>
 					<p style="font-size:12px">Percent Alive: <input type="text" id="ratio_" maxlength="4" size="4" style="background-color:#A9F5A9; font-size:12px"></p>
+				</td><td>
 					<p style="font-size:12px">Death Toll (total): <input type="text" id="deads_" maxlength="4" size="4" style="background-color:#F5A9A9; font-size:12px"></p>
 					<p style="font-size:12px">Death toll (by underpopulation): <input type="text" id="under_" maxlength="4" size="4" style="background-color:#F5A9A9; font-size:12px"></p>
 					<p style="font-size:12px">Death toll (by overpopulation): <input type="text" id="over_" maxlength="4" size="4" style="background-color:#F5A9A9; font-size:12px"></p>
@@ -111,7 +114,7 @@
 			<!-- <img src="PLAYING.png" name="pic" onclick="swap()"/>
 			<img src="PLAYING.png" onclick="this.src = this.src == playingImg ? muteImg : playingImg;"/> -->
 			
-			<img id="pic" onclick="volumeToggle()" src="textures\PLAYING.png">
+			
 			<!-- Preset Games:
 			<select name="game_name" id="size">
 				<option value="10">Random</option>
