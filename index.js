@@ -157,10 +157,14 @@ function deadOrAlive(x, y, nAlive) {
 function updateCube(x, y, gridNew) {
 	// First, check the states of all neighbors and tally up # alive/dead
 	var nAlive = 0; // # of neighbors alive
-	if (x > 0) { nAlive += deadOrAlive(x - 1, y, nAlive); }
-	if (x < gridWidth-1) { nAlive += deadOrAlive(x + 1, y, nAlive); }
-	if (y > 0) { nAlive += deadOrAlive(x, y - 1, nAlive); }
-	if (y < gridWidth-1) { nAlive += deadOrAlive(x, y + 1, nAlive); }
+	if (x > 0) { nAlive = deadOrAlive(x - 1, y, nAlive); } // left
+	if (x < gridWidth - 1) { nAlive = deadOrAlive(x + 1, y, nAlive); } // right
+	if (y > 0) { nAlive = deadOrAlive(x, y - 1, nAlive); } // below
+	if (y < gridHeight - 1) { nAlive = deadOrAlive(x, y + 1, nAlive); } // above
+	if (x > 0 && y > 0) { nAlive = deadOrAlive(x - 1, y - 1, nAlive); } // left-below
+	if (x > 0 && y < gridWidth - 1) { nAlive = deadOrAlive(x - 1, y + 1, nAlive); } // left-above
+	if (x < gridWidth - 1 && y > 0) { nAlive = deadOrAlive(x + 1, y - 1, nAlive); } // right-below
+	if (x < gridWidth - 1 && y < gridHeight - 1) { nAlive = deadOrAlive(x + 1, y + 1, nAlive); } // right-above
 
 	if (grid[x][y]) { // if the cell is alive
 		// Rule 1: Any live cell with fewer than two live neighbours dies, as if caused by under-population.
@@ -196,6 +200,7 @@ function switchCubeState(x, y) {
 		cubesAlive += 1;
 	} 
 }
+
 
 //=============================================================================
 // Update the states of the entire grid
@@ -275,8 +280,18 @@ var main = function() {
 	camera.position.y = 500;
 	scene = new THREE.Scene();
 
-	initGrid(true);
-	updateGrid();
+	initGrid(false);
+
+
+	// switchCubeState(3,3);
+	// switchCubeState(3,2);
+	// switchCubeState(3,4);
+
+	switchCubeState(1,1);
+	switchCubeState(2,1);
+	switchCubeState(1,2);
+
+	//updateGrid();
 
 
 	for (var i = 0; i < grid.length; i++){
@@ -299,6 +314,7 @@ function render() {
 	// 	time = clock.getElapsedTime() * 1000;
 
 	updateGrid();
+	scene = new THREE.Scene();
 
 	for (var i = 0; i < grid.length; i++){
 		for (var j = 0; j < grid[i].length; ++j){
