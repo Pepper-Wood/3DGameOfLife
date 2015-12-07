@@ -69,7 +69,7 @@ function cubeObj(t_Int, s, x_pos, y_pos) {
     var material;
     var textureInt = Math.floor(Math.random() * 6);
     
-    if (document.getElementById("modeButton").value = "Conway's")//conway textures
+    if (document.getElementById("modeButton").value == "Conway's")//conway textures
     {
         switch(textureInt)
         {
@@ -142,6 +142,11 @@ function cubeObj(t_Int, s, x_pos, y_pos) {
         }
     }
     
+    this.meshChange = function(mat)
+    {
+        this.mesh = new THREE.Mesh(this.geometry,mat);
+        this.mesh.position = new THREE.Vector3(this.x_pos * this.len_side, this.y_pos * this.len_side, 0);
+    }
     
     
     
@@ -321,20 +326,26 @@ function updateGrid() {
 	grid = gridNew.slice();
 }
 
+function textureUpdate()
+{
+    for (var x = 0; x < gridWidth; ++x)
+    {
+        for (var y = 0; y < gridHeight; ++y)
+        {
+            grid[x][y] = new cubeObj(0, grid[x][y].state, y, x);
+            
+            // scene.remove(grid[x][y].mesh);
+            // if (grid[x][y].state)
+            // {
+                // scene.add(grid[x][y].mesh);
+            // }
+        }
+    }
+    renderer.render(scene, camera)
+}
+
 function conwayButtonPress()
 {
-    for (var x = 0; x < gridWidth; ++x) {
-		for (var y = 0; y < gridHeight; ++y) {
-			// grid[x][y].changeTexture();
-            scene.remove(grid[x][y].mesh);
-            grid[x][y] = new cubeObj(0, grid[x][y].state, y, x);
-            if (grid[x][y].state)
-            {
-                scene.add(grid[x][y].mesh);
-            }
-            renderer.render(scene, camera); 
-		}
-	}
     var elem = document.getElementById("modeButton");
     if (elem.value == "Conway's") 
     {
@@ -352,6 +363,8 @@ function conwayButtonPress()
         cenaPiano.currentTime = 0;
         conwayAudio.play();
     }
+    
+    textureUpdate();
 }
 
 function volumeToggle()
