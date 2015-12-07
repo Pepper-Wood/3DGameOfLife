@@ -16,10 +16,15 @@ conwayAudio.volume = .4;
 var conwaySource = document.createElement('source');
 var cenaAudio = document.createElement('audio');
 var cenaSource = document.createElement('source');
+var cenaPiano = document.createElement('audio');
+cenaPiano.volume = .5;
+var cenaPianoSource = document.createElement('source');
 conwaySource.src = 'sounds/conway.mp3';
 cenaSource.src = 'sounds/AND_HIS_NAME_IS_JOHN_CENA.wav';
+cenaPianoSource.src = 'sounds/cena_piano.mp3';
 conwayAudio.appendChild(conwaySource);
 cenaAudio.appendChild(cenaSource);  
+cenaPiano.appendChild(cenaPianoSource);
 //=============================================================================
 function initialize_button() {
 	var gridWidth = document.getElementById("gridWidth").value;
@@ -209,26 +214,28 @@ function conwayButtonPress()
         elem.value = "Conway's";
         cenaAudio.pause();
         cenaAudio.currentTime = 0;
+        cenaPiano.pause();
+        cenaPiano.currentTime = 0;
         conwayAudio.play();
     }
-    
 }
 
 function volumeToggle()
 {
-    
     var image = document.getElementById("pic");
     if (image.src.match("textures/PLAYING.png")) 
     {
         image.src = "textures/MUTE.png";
         conwayAudio.volume = 0;
         cenaAudio.volume = 0;
+        cenaPiano.volume = 0;
     }
     else 
     {
         image.src = "textures/PLAYING.png";
         conwayAudio.volume = .4;
         cenaAudio.volume = 1;
+        cenaPiano.volume = .5;
     }
 }
 //=============================================================================
@@ -238,4 +245,7 @@ var main = function() {
     conwayAudio.play();
 };
 
+conwayAudio.addEventListener("ended", function(e){conwayAudio.play();}, false);
+cenaAudio.addEventListener("ended", function(e){cenaPiano.play();}, false);
+cenaPiano.addEventListener("ended", function(e){cenaPiano.play();}, false);
 window.addEventListener( 'load', main, true );
