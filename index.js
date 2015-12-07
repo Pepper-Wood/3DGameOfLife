@@ -8,8 +8,8 @@ gen = 0; // Current generation/iteration number
 deathOver = 0; // Total deaths due to overpopulation
 deathUnder = 0; // Total deaths due to underpopulation
 deathToll = 0; // Total deaths overall
-var cena_textures = ["textures/cena_textures/1.jpg","textures/cena_textures/2.jpg","textures/cena_textures/3.jpg","textures/cena_textures/4.jpg", "textures/cena_textures/5.jpg", "textures/cena_textures/6.jpg"];
-var color_textures = ["textures/color_textures/1.jpg","textures/color_textures/2.jpg","textures/color_textures/3.jpg","textures/color_textures/4.jpg", "textures/color_textures/5.jpg", "textures/color_textures/6.jpg"];
+var cena_textures = [];// = ["textures/cena_textures/1.jpg","textures/cena_textures/2.jpg","textures/cena_textures/3.jpg","textures/cena_textures/4.jpg", "textures/cena_textures/5.jpg", "textures/cena_textures/6.jpg"];
+var color_textures = [];// = ["textures/color_textures/1.jpg","textures/color_textures/2.jpg","textures/color_textures/3.jpg","textures/color_textures/4.jpg", "textures/color_textures/5.jpg", "textures/color_textures/6.jpg"];
 //initialize audio
 var conwayAudio = document.createElement('audio');
 conwayAudio.volume = .4;
@@ -297,7 +297,6 @@ function switchCubeState(x, y) {
         renderer.render(scene, camera); 
 }
 
-
 //=============================================================================
 // Update the states of the entire grid
 function updateGrid() {
@@ -334,15 +333,14 @@ function textureUpdate()
         {
             
             scene.remove(grid[x][y].mesh);
-            grid[x][y] = new cubeObj(0, grid[x][y].state, y, x);
-            
+            var temp = new cubeObj(0, grid[x][y].state, y, x);
+            grid[x][y] = temp;
             if (grid[x][y].state)
             {
                 scene.add(grid[x][y].mesh);
             }
         }
     }
-    renderer.render(scene, camera)
 }
 
 function conwayButtonPress()
@@ -390,7 +388,18 @@ function volumeToggle()
 //=============================================================================
 //=============================================================================
 var main = function() {
-	// * VERY IMPORTANT STUFF GOES HERE YOU SHOULD ADD IT * //
+    var conway = "textures/conway_textures/";
+    var cena = "textures/cena_textures/";
+    for (var i = 0; i < 6; i++)
+    {
+        var temp = conway.concat(i.toString(), ".jpg");
+        var texture = THREE.ImageUtils.loadTexture( temp, {}, function(){ renderer.render(scene, camera); } );
+        color_textures.push(texture);
+        var temp = cena.concat(i.toString(), ".jpg");
+        var texture = THREE.ImageUtils.loadTexture( temp, {}, function(){ renderer.render(scene, camera); } );
+        cena_textures.push(texture);
+        
+    }
     conwayAudio.play();
 
     renderer = new THREE.CanvasRenderer();
@@ -434,8 +443,8 @@ function render() {
 			}
 		}
 	}
-
-
+    
+    
 	renderer.render( scene, camera );
 
 }
