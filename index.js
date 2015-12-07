@@ -12,10 +12,11 @@ var cena_textures = ["textures/cena_textures/1.jpg","textures/cena_textures/2.jp
 var color_textures = ["textures/color_textures/1.jpg","textures/color_textures/2.jpg","textures/color_textures/3.jpg","textures/color_textures/4.jpg", "textures/color_textures/5.jpg", "textures/color_textures/6.jpg"];
 //initialize audio
 var conwayAudio = document.createElement('audio');
+conwayAudio.volume = .4;
 var conwaySource = document.createElement('source');
 var cenaAudio = document.createElement('audio');
 var cenaSource = document.createElement('source');
-conwaySource.src = 'sounds/AND_HIS_NAME_IS_JOHN_CENA.wav';
+conwaySource.src = 'sounds/conway.mp3';
 cenaSource.src = 'sounds/AND_HIS_NAME_IS_JOHN_CENA.wav';
 conwayAudio.appendChild(conwaySource);
 cenaAudio.appendChild(cenaSource);  
@@ -226,7 +227,7 @@ function volumeToggle()
     else 
     {
         image.src = "textures/PLAYING.png";
-        conwayAudio.volume = 1;
+        conwayAudio.volume = .4;
         cenaAudio.volume = 1;
     }
 }
