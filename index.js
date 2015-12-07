@@ -1,8 +1,10 @@
 // * SOME JS INITIALIZATION STUFF GOES HERE PROBABLY MAYBE? *
 
 var grid = []; // Grid containing all the cubes
-var gridWidth = 20;
-var gridHeight = 20;
+// var gridWidth = 20;
+// var gridHeight = 20;
+var gridWidth;
+var gridHeight;
 cubesAlive = 0;
 gen = 0; // Current generation/iteration number
 deathOver = 0; // Total deaths due to overpopulation
@@ -33,16 +35,19 @@ var clock = new THREE.Clock();
 
 //=============================================================================
 function initialize_button() {
-	var gridWidth = document.getElementById("gridWidth").value;
-	var gridHeight = document.getElementById("gridHeight").value;
+	gridWidth = document.getElementById("gridWidth").value;
+	gridHeight = document.getElementById("gridHeight").value;
 	
 	// if bool is true, then random. If false, then all dead
 	if (document.getElementById("size").value == 10) { // ALL DEAD
 		initGrid(false);
+		render(false);
 	} else if (document.getElementById("size").value == 20) { // RANDOM
 		initGrid(true);
+		render(false);
 	} else {
 		initGrid(true);
+		render(false);
 	}
 }
 
@@ -173,10 +178,10 @@ function initGrid(type) {
 	var state = false;
 	var stateInt;
 
-	for (var y = 0; y < gridHeight; ++y) {
+	for (var x = 0; x < gridHeight; ++x) {
 		newRow = [];
 		
-		for (var x = 0; x < gridWidth; ++x) {
+		for (var y = 0; y < gridWidth; ++y) {
 			// Randomize state (if applicable)
 			if (type) {
 				stateInt = Math.floor(Math.random()*2);
@@ -193,23 +198,23 @@ function initGrid(type) {
 			
 			if (x == 0 && y == 0) { // upper left corner
 			}
-			else if (x > 0 && y == 0) { // first row
-				while (newRow[x - 1].textureInt == textureNew) {
+			else if (y > 0 && x == 0) { // first row
+				while (newRow[y - 1].textureInt == textureNew) {
 					textureNew = Math.floor(Math.random()*6);
 				}
 			}
-			else if (x == 0 && y > 0) { // first cube in all rows after the 1st
-				while (grid[y - 1][x].textureInt == textureNew) {
+			else if (y == 0 && x > 0) { // first cube in all rows after the 1st
+				while (grid[x - 1][y].textureInt == textureNew) {
 					textureNew = Math.floor(Math.random()*6);
 				}
 			}
-			else if (x > 0 && y > 0 && y < gridHeight) { // all rows but first and last, not first in row
-				while (newRow[x - 1].textureInt == textureNew || grid[y - 1][x].textureInt == textureNew) {
+			else if (x > 0 && y > 0 && y < gridWidth) { // all rows but first and last, not first in row
+				while (newRow[y - 1].textureInt == textureNew || grid[x - 1][y].textureInt == textureNew) {
 					textureNew = Math.floor(Math.random()*6);
 				}
 			}
-			else if (x > 0 && y == gridHeight) { // last row
-				while (newRow[x - 1].textureInt == textureNew) {
+			else if (y > 0 && x == gridHeight) { // last row
+				while (newRow[y - 1].textureInt == textureNew) {
 					textureNew = Math.floor(Math.random()*6);
 				}
 			}
@@ -242,13 +247,13 @@ function updateCube(x, y, gridNew) {
 	// First, check the states of all neighbors and tally up # alive/dead
 	var nAlive = 0; // # of neighbors alive
 	if (x > 0) { nAlive = deadOrAlive(x - 1, y, nAlive); } // left
-	if (x < gridWidth - 1) { nAlive = deadOrAlive(x + 1, y, nAlive); } // right
+	if (x < gridHeight - 1) { nAlive = deadOrAlive(x + 1, y, nAlive); } // right
 	if (y > 0) { nAlive = deadOrAlive(x, y - 1, nAlive); } // below
-	if (y < gridHeight - 1) { nAlive = deadOrAlive(x, y + 1, nAlive); } // above
+	if (y < gridWidth - 1) { nAlive = deadOrAlive(x, y + 1, nAlive); } // above
 	if (x > 0 && y > 0) { nAlive = deadOrAlive(x - 1, y - 1, nAlive); } // left-below
-	if (x > 0 && y < gridHeight - 1) { nAlive = deadOrAlive(x - 1, y + 1, nAlive); } // left-above
-	if (x < gridWidth - 1 && y > 0) { nAlive = deadOrAlive(x + 1, y - 1, nAlive); } // right-below
-	if (x < gridWidth - 1 && y < gridHeight - 1) { nAlive = deadOrAlive(x + 1, y + 1, nAlive); } // right-above
+	if (x > 0 && y < gridWidth - 1) { nAlive = deadOrAlive(x - 1, y + 1, nAlive); } // left-above
+	if (x < gridHeight - 1 && y > 0) { nAlive = deadOrAlive(x + 1, y - 1, nAlive); } // right-below
+	if (x < gridHeight - 1 && y < gridWidth - 1) { nAlive = deadOrAlive(x + 1, y + 1, nAlive); } // right-above
     
 	if (grid[x][y].state) { // if the cell is alive
 		// Rule 1: Any live cell with fewer than two live neighbours dies, as if caused by under-population.
@@ -297,12 +302,12 @@ function switchCubeState(x, y) {
 // Update the states of the entire grid
 function updateGrid() {
 	var gridNew = grid.slice();
-	for (var x = 0; x < gridWidth; ++x) {
-		for (var y = 0; y < gridHeight; ++y) {
+	for (var x = 0; x < gridHeight; ++x) {
+		for (var y = 0; y < gridWidth; ++y) {
 			// Display values on the html pageX
 			document.getElementById("gen_").value=gen;
 			document.getElementById("alives_").value=cubesAlive;
-			var ratio_num = 100 * (cubesAlive / (gridWidth * gridHeight)).toFixed(2);
+			var ratio_num = 100 * (cubesAlive / (gridHeight * gridWidth)).toFixed(2);
 			document.getElementById("ratio_").value=ratio_num;
 			document.getElementById("deads_").value=deathToll;
 			document.getElementById("under_").value=deathUnder;		
@@ -311,9 +316,9 @@ function updateGrid() {
 		}
 	}
     
-    for (var x = 0; x < gridWidth; x++)
+    for (var x = 0; x < gridHeight; x++)
     {
-        for (var y = 0; y < gridHeight; y++)
+        for (var y = 0; y < gridWidth; y++)
         {
             stateChange(x, y, gridNew);
         }
@@ -323,8 +328,8 @@ function updateGrid() {
 
 function conwayButtonPress()
 {
-    for (var x = 0; x < gridWidth; ++x) {
-		for (var y = 0; y < gridHeight; ++y) {
+    for (var x = 0; x < gridHeight; ++x) {
+		for (var y = 0; y < gridWidth; ++y) {
 			// grid[x][y].changeTexture();
             scene.remove(grid[x][y].mesh);
             grid[x][y] = new cubeObj(0, grid[x][y].state, y, x);
@@ -386,34 +391,35 @@ var main = function() {
 	camera.position.z = 1000;
 	camera.position.x = 500;
 	camera.position.y = 500;
-	scene = new THREE.Scene();
+	//scene = new THREE.Scene();
 
-	initGrid(false);
+	// for (var i = 0; i < grid.length; i++){
+	// 	for (var j = 0; j < grid[i].length; ++j){
+	// 		if (grid[i][j].state == true){
+	// 			scene.add( grid[i][j].mesh );
+	// 		}
+	// 	}
+	// }
 
-	for (var i = 0; i < grid.length; i++){
-		for (var j = 0; j < grid[i].length; ++j){
-			if (grid[i][j].state == true){
-				scene.add( grid[i][j].mesh );
-			}
-		}
-	}
 
-	renderer.render(scene,camera);
+	//renderer.render(scene,camera);
 
 
 
 };
 
-function render() {
+function render(type = true) {
 
 	// var delta = clock.getDelta(),
 	// 	time = clock.getElapsedTime() * 1000;
 
-	updateGrid();
+	if (type == true){
+		updateGrid();
+	}
 	scene = new THREE.Scene();
 
-	for (var i = 0; i < grid.length; i++){
-		for (var j = 0; j < grid[i].length; ++j){
+	for (var i = 0; i < gridHeight; i++){
+		for (var j = 0; j < gridWidth; ++j){
 			if (grid[i][j].state == true){
 				scene.add( grid[i][j].mesh );
 			}
