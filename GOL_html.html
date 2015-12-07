@@ -5,7 +5,7 @@
 		<script type="text/javascript" src="RequestAnimationFrame.js"></script>
 		<script type="text/javascript" src="build/three.js"></script>
 		<script type="text/javascript" src="jquery-1.7.min.js"></script>
-		<script type="text/javascript" src="index.js" defer="defer"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/three.js/r57/three.min.js"></script>
 		<style>
 			body {
 				font-family: Georgia, serif;
@@ -26,7 +26,7 @@
 
 
 	
-	<body>		
+	<body>	
 		<h1> John <input onclick="conwayButtonPress()" type="button" value="Conway's" id="modeButton"></input>  3D Game Of Life</h1>
 		<!-- http://stackoverflow.com/questions/10671174/changing-button-text-onclick -->
 		<!-- fyi use this in the javascript to change text -->
@@ -37,7 +37,9 @@
 			This is the final graphics project for Kathryn DiPippo, Marina Espinoza, Darien Keyack, Alexander Mohr, and Kathrine Ryan.
 		</p>
 
+
 		<p>
+			<script type="text/javascript" src="index.js"></script>
 			<strong>Rules:</strong>
 			<ul>
 				<li>Any live cell with less than two live neighbors dies       (underpopulation)</li>
@@ -46,8 +48,6 @@
 				<li>Any empty cell with three live neighbors becomes alive     (reproduction)</li>
 			</ul>
 		</p>
-		<!-- adds a divider to the file; this runs the actual application -->
-		<div id="gameoflife" style="border:1px solid #CCCCCC; margin:20px;"></div>
 		
 		<!-- bottom input things -->
 		<div id="controls">

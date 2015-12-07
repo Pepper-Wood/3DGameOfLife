@@ -9,7 +9,7 @@ deathOver = 0; // Total deaths due to overpopulation
 deathUnder = 0; // Total deaths due to underpopulation
 deathToll = 0; // Total deaths overall
 var cena_textures = ["textures/cena_textures/1.jpg","textures/cena_textures/2.jpg","textures/cena_textures/3.jpg","textures/cena_textures/4.jpg", "textures/cena_textures/5.jpg", "textures/cena_textures/6.jpg"];
-var color_textures = ["textures/color_textures/1.jpg","textures/color_textures/2.jpg","textures/color_textures/3.jpg","textures/color_textures/4.jpg", "textures/color_textures/5.jpg", "textures/color_textures/6.jpg"];
+var color_textures = ["textures/color_textures/3.jpg","textures/color_textures/3.jpg","textures/color_textures/3.jpg","textures/color_textures/3.jpg", "textures/color_textures/3.jpg", "textures/color_textures/3.jpg"];
 //initialize audio
 var conwayAudio = document.createElement('audio');
 conwayAudio.volume = .4;
@@ -26,6 +26,7 @@ cenaPianoSource.src = 'sounds/cena_piano.mp3';
 conwayAudio.appendChild(conwaySource);
 cenaAudio.appendChild(cenaSource);  
 cenaPiano.appendChild(cenaPianoSource);
+var camera, scene, renderer;
 
 //=============================================================================
 function initialize_button() {
@@ -59,17 +60,18 @@ function pause_button() {
 }
 
 //=============================================================================
-function cubeObj(textureInt, state, x_pos, y_pos) {
-	geometry = new THREE.CubeGeometry( 200, 200, 200 );
-	material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture(color_textures[textureInt-1]) } );
+function cubeObj(t_Int, s, x_pos, y_pos) {
+	var geometry = new THREE.CubeGeometry( 200, 200, 200 );
+	var material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture("/home/marina/FALL2015/graphics/repo4/3DGameOfLife/textures/cena_textures/5.jpg") } );
+	//material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+	
+	this.textureInt = t_Int;
+	this.state = s;
 
-	this.textureInt_ = textureInt;
-	this.state_ = state;
-
-	this.mesh_ = new THREE.Mesh( geometry , material );
-	this.mesh_.rotation.x = -100;
-	this.mesh_.rotation.y = -100;
-	this.mesh_.position = new THREE.Vector3(x_pos,y_pos);
+	this.mesh = new THREE.Mesh( geometry , material );
+	this.mesh.rotation.x = -100;
+	this.mesh.rotation.y = -100;
+	this.mesh.position = new THREE.Vector3(x_pos,y_pos);
 }
 
 //=============================================================================
@@ -129,8 +131,8 @@ function initGrid(type) {
 				while (newRow[x - 1].textureInt == textureNew) {
 					textureNew = Math.floor(Math.random()*6);
 				}
-			}			
-			newCube = new cubeObj(textureNew, state, x, y);
+			}
+			newCube = new cubeObj(textureNew, state, x, y);			
 			newRow.push(newCube);
 		}
 		grid.push(newRow);
@@ -151,10 +153,10 @@ function deadOrAlive(x, y, nAlive) {
 function updateCube(x, y, gridNew) {
 	// First, check the states of all neighbors and tally up # alive/dead
 	var nAlive = 0; // # of neighbors alive
-	if (x > 0) { nAlive = deadOrAlive(x - 1, y, neighbors); }
-	if (x < gridWidth) { nAlive = deadOrAlive(x + 1, y, neighbors); }
-	if (y > 0) { nAlive = deadOrAlive(x, y - 1, neighbors); }
-	if (y < gridWidth) { nAlive = deadOrAlive(x, y + 1, neighbors); }
+	if (x > 0) { nAlive = deadOrAlive(x - 1, y, nAlive); }
+	if (x < gridWidth-1) { nAlive = deadOrAlive(x + 1, y, nAlive); }
+	if (y > 0) { nAlive = deadOrAlive(x, y - 1, nAlive); }
+	if (y < gridWidth-1) { nAlive = deadOrAlive(x, y + 1, nAlive); }
 
 	if (grid[x][y]) { // if the cell is alive
 		// Rule 1: Any live cell with fewer than two live neighbours dies, as if caused by under-population.
@@ -194,24 +196,24 @@ function switchCubeState(x, y) {
 //=============================================================================
 // Update the states of the entire grid
 function updateGrid() {
-	var gridNew = grid;
+	var gridNew = grid.slice();
 	for (var x = 0; x < gridWidth; ++x) {
 		for (var y = 0; y < gridHeight; ++y) {
 			// Display values on the html pageX
-			document.getElementsById("gen_").value=gen;
+			document.getElementById("gen_").value=gen;
 			document.getElementById("gen_1").innerHTML=gen;
-			document.getElementsById("alives_").value=cubesAlive;
+			document.getElementById("alives_").value=cubesAlive;
 			document.getElementById("alives_1").innerHTML=cubesAlive;
-			document.getElementsById("deads_").value=deathToll;
+			document.getElementById("deads_").value=deathToll;
 			document.getElementById("deads_1").innerHTML=deathToll;
-			document.getElementsById("under_").value=deathUnder;
+			document.getElementById("under_").value=deathUnder;
 			document.getElementById("under_1").innerHTML=deathUnder;
-			document.getElementsById("over_").value=deathOver;
+			document.getElementById("over_").value=deathOver;
 			document.getElementById("over_1").innerHTML=deathOver;
-			updateCube(x, y);
+			updateCube(x, y, gridNew);
 		}
 	}
-	grid = gridNew;
+	grid = gridNew.slice();
 }
 
 function conwayButtonPress()
@@ -258,6 +260,40 @@ function volumeToggle()
 var main = function() {
 	// * VERY IMPORTANT STUFF GOES HERE YOU SHOULD ADD IT * //
     conwayAudio.play();
+
+    renderer = new THREE.CanvasRenderer();
+				renderer.setSize( 700, 500 );
+				document.body.appendChild( renderer.domElement );
+
+	camera = new THREE.PerspectiveCamera( 75, 700 / 500, 1, 1000 );
+	camera.position.z = 500;
+	scene = new THREE.Scene();
+
+	initGrid(true);
+	updateGrid();
+
+	// if (grid[0][0].state == true){
+	// 	console.log("THIS IS TRUEEEEE");
+	// 	 scene.add( grid[0][0].mesh );
+
+	// }
+
+	for (var i = 0; i < grid.length; i++){
+		for (var j = 0; j < grid[i].length; ++j){
+			if (grid[i][j].state == true){
+				console.log("x = " + grid[i][j].mesh.position.x);
+				console.log("y = " + grid[i][j].mesh.position.y);
+				scene.add( grid[i][j].mesh );
+				break;
+			}
+		}
+		break;
+	}
+
+
+	renderer.render( scene, camera );
+
+
 };
 
 conwayAudio.addEventListener("ended", function(e){conwayAudio.play();}, false);
