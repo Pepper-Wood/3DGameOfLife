@@ -226,7 +226,7 @@ function updateGrid() {
 			// Display values on the html pageX
 			document.getElementById("gen_").value=gen;
 			document.getElementById("alives_").value=cubesAlive;
-			var ratio_num = (float(cubesAlive) / (gridWidth * gridHeight)).toFixed(2);
+			var ratio_num = (cubesAlive / (gridWidth * gridHeight)).toFixed(2);
 			document.getElementById("ratio_").value=ratio_num;
 			document.getElementById("deads_").value=deathToll;
 			document.getElementById("under_").value=deathUnder;		
