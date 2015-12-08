@@ -69,7 +69,7 @@ function pause_button() {
 function play()
 {
     if (!running) {
-        myTimer = setInterval(render, 500);
+        myTimer = setInterval(render, 100);
         running = true;
     }
 }
@@ -321,6 +321,7 @@ function switchCubeState(x, y) {
 //=============================================================================
 // Update the states of the entire grid
 function updateGrid() {
+	gen = gen + 1;
 	var gridNew = grid.slice();
 	for (var x = 0; x < gridHeight; ++x) {
 		for (var y = 0; y < gridWidth; ++y) {
