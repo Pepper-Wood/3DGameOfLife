@@ -109,11 +109,9 @@
 						<input type="button" id="pause_butt" value="Pause" onClick="pause()"/>
 					</p>
 				</td>
-				<td><h3>Rotate View</h3>
-                    Rot X: <input name="head" orien="x" type="range" value="0" max="360" min="1" oninput="handleScroll(this);"></input><br>
-                    Rot Y: <input name="head" orien="y" type="range" value="0" max="360" min="1" oninput="handleScroll(this);"></input><br>
-                    Rot Z: <input name="head" orien="z" type="range" value="0" max="360" min="1" oninput="handleScroll(this);"></input><br><br><br><br>
-                </td>
+				<td><p>Speed: <input name="speed" orien="z" type="range" value="100" max="500" min="1" oninput="handleSpeed(this);"></input><br><br><br><br></p>
+				<p style="font-size:10px">Move left to increases speed</p>
+				<p style="font-size:10px">Move right to decrease speed</p></td>
 			</tr></table>
 			<p></p>
 			

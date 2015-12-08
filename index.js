@@ -32,6 +32,7 @@ var camera, scene, renderer;
 var clock = new THREE.Clock();
 var running = false;
 var myTimer;
+var SPEED_VALUE = 500;
 
 //=============================================================================
 function initialize_button() {
@@ -57,19 +58,11 @@ function change_state_button() {
 	switchCubeState(document.getElementById("individ_x").value, document.getElementById("individ_y").value);
 }
 
-//=============================================================================
-function play_button() {
-	//DO STUFF
-}
-
-//=============================================================================
-function pause_button() {
-	//DO STUFF
-}
 function play()
 {
+	console.log("++++++++++++++++++++    " + SPEED_VALUE);
     if (!running) {
-        myTimer = setInterval(render, 100);
+        myTimer = setInterval(render, SPEED_VALUE);
         running = true;
     }
 }
@@ -497,6 +490,15 @@ function animate() {
 	render();
 
 }
+
+function handleSpeed(slider) {
+	console.log("!!!!!!!!!!!!!!!!!!!!     " + slider.value);
+	SPEED_VALUE = slider.value;
+	console.log("====================    " + SPEED_VALUE);
+}	
+	
+	
+
 
 function handleScroll(slider) {
     var part = slider.name;
