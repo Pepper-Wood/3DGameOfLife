@@ -58,20 +58,20 @@ function change_state_button() {
 	switchCubeState(document.getElementById("individ_x").value, document.getElementById("individ_y").value);
 }
 
-function play()
-{
-	console.log("++++++++++++++++++++    " + SPEED_VALUE);
+//=============================================================================
+function play() {
     if (!running) {
         myTimer = setInterval(render, SPEED_VALUE);
         running = true;
     }
 }
 
-function pause()
-{
+//=============================================================================
+function pause() {
     clearInterval(myTimer);
     running = false;
 }
+
 //=============================================================================
 function cubeObj(t_Int, s, x_pos, y_pos) {
 	var len_side = 50;
@@ -79,98 +79,63 @@ function cubeObj(t_Int, s, x_pos, y_pos) {
     var material;
     var textureInt = Math.floor(Math.random() * 6);
     
-    if (document.getElementById("modeButton").value == "Conway's")//conway textures
+    if (document.getElementById("modeButton").value == "Conway's") //conway textures
     {
-        // material = color_textures[textureInt];
-        // material = new THREE.Texture(color_textures[textureInt]);
-        switch(textureInt)
-        {
-            case 0:
-            {
+        switch(textureInt) {
+            case 0: {
                 material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture("textures/color_textures/1.jpg") } );
                 break;
-            }
-            case 1:
-            {
+            } case 1: {
                 material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture("textures/color_textures/2.jpg") } );
                 break;
-            }
-            case 2:
-            {
+            } case 2: {
                 material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture("textures/color_textures/3.jpg") } );
                 break;
-            }
-            case 3:
-            {
+            } case 3: {
                 material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture("textures/color_textures/4.jpg") } );
                 break;
-            }
-            case 4:
-            {
+            } case 4: {
                 material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture("textures/color_textures/5.jpg") } );
                 break;
-            }
-            case 5:
-            {
+            } case 5: {
                 material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture("textures/color_textures/6.jpg") } );
                 break;
             }
         }
-    }
-    else//cena textures
-    {
-        // material = cena_textures[textureInt];
-        switch(textureInt)
-        {
-            case 0:
-            {
+    } else { //cena textures
+        switch(textureInt) {
+            case 0: {
                 material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture("textures/cena_textures/1.jpg") } );
                 break;
-            }
-            case 1:
-            {
+            } case 1: {
                 material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture("textures/cena_textures/2.jpg") } );
                 break;
-            }
-            case 2:
-            {
+            } case 2: {
                 material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture("textures/cena_textures/3.jpg") } );
                 break;
-            }
-            case 3:
-            {
+            } case 3: {
                 material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture("textures/cena_textures/4.jpg") } );
                 break;
-            }
-            case 4:
-            {
+            } case 4: {
                 material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture("textures/cena_textures/5.jpg") } );
                 break;
-            }
-            case 5:
-            {
+            } case 5: {
                 material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture("textures/cena_textures/6.jpg") } );
                 break;
             }
         }
     }
     
-    this.meshChange = function(mat)
-    {
+    this.meshChange = function(mat) {
         this.mesh = new THREE.Mesh(this.geometry,mat);
         this.mesh.position = new THREE.Vector3((x_pos * len_side) - (window.innerHeight), (y_pos * len_side) - (window.innerWidth/4), 0);
-
     }
-    
-    
     
 	this.textureInt = t_Int;
 	this.state = s;
     this.newState = s;
 
 	this.mesh = new THREE.Mesh( geometry , material );
-	// this.mesh.rotation.x = -100;
-	// this.mesh.rotation.y = -100; 
 	this.mesh.position = new THREE.Vector3((x_pos * len_side) - (window.innerHeight), (y_pos * len_side) - (window.innerWidth/4), 0);
 }
 
@@ -211,23 +176,19 @@ function initGrid(type) {
 			textureNew = Math.floor(Math.random()*6);			
 			
 			if (x == 0 && y == 0) { // upper left corner
-			}
-			else if (y > 0 && x == 0) { // first row
+			} else if (y > 0 && x == 0) { // first row
 				while (newRow[y - 1].textureInt == textureNew) {
 					textureNew = Math.floor(Math.random()*6);
 				}
-			}
-			else if (y == 0 && x > 0) { // first cube in all rows after the 1st
+			} else if (y == 0 && x > 0) { // first cube in all rows after the 1st
 				while (grid[x - 1][y].textureInt == textureNew) {
 					textureNew = Math.floor(Math.random()*6);
 				}
-			}
-			else if (x > 0 && y > 0 && y < gridWidth) { // all rows but first and last, not first in row
+			} else if (x > 0 && y > 0 && y < gridWidth) { // all rows but first and last, not first in row
 				while (newRow[y - 1].textureInt == textureNew || grid[x - 1][y].textureInt == textureNew) {
 					textureNew = Math.floor(Math.random()*6);
 				}
-			}
-			else if (y > 0 && x == gridHeight) { // last row
+			} else if (y > 0 && x == gridHeight) { // last row
 				while (newRow[y - 1].textureInt == textureNew) {
 					textureNew = Math.floor(Math.random()*6);
 				}
@@ -248,13 +209,14 @@ function deadOrAlive(x, y, nAlive) {
 	return nAlive;
 }
 
+//=============================================================================
 function stateChange(x, y, gridNew)
 {
-    if (gridNew[x][y].state != gridNew[x][y].newState)
-    {
+    if (gridNew[x][y].state != gridNew[x][y].newState) {
         gridNew[x][y].state = gridNew[x][y].newState;
     }
 }
+
 //=============================================================================
 // Have a specific cube update its state according the rules
 function updateCube(x, y, gridNew) {
@@ -278,14 +240,11 @@ function updateCube(x, y, gridNew) {
 			cubesAlive -= 1;
 			if (nAlive < 2) { deathUnder += 1; } // Rule 1
 			else { deathOver += 1; } // Rule 2
-		}
-        else
-        {
+		} else {
             gridNew[x][y].newState = true;
         }
 		// Rule 2: Any live cell with two or three live neighbours lives on to the next generation.
-	}
-	else { // if the cell is dead
+	} else { // if the cell is dead
 		// Rule 4: Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 		if (nAlive == 3) {
 			gridNew[x][y].newState = true;
@@ -301,14 +260,12 @@ function switchCubeState(x, y) {
 		grid[x][y].state = false;
 		cubesAlive -= 1;
         scene.remove(grid[x][y].mesh);
-	}
-	else {
-    
+	} else {
         scene.add(grid[x][y].mesh);
 		grid[x][y].state = true;
 		cubesAlive += 1;
 	} 
-        renderer.render(scene, camera); 
+	renderer.render(scene, camera); 
 }
 
 //=============================================================================
@@ -330,20 +287,16 @@ function updateGrid() {
 		}
 	}
     
-    for (var x = 0; x < gridHeight; x++)
-    {
-        for (var y = 0; y < gridWidth; y++)
-        {
+    for (var x = 0; x < gridHeight; x++) {
+        for (var y = 0; y < gridWidth; y++) {
             stateChange(x, y, gridNew);
         }
     }
 	grid = gridNew.slice();
 }
 
-function textureUpdate()
-{
-
-
+//=============================================================================
+function textureUpdate() {
     for (var x = 0; x < gridHeight; ++x) {
 		for (var y = 0; y < gridWidth; ++y) {
 			// grid[x][y].changeTexture();
@@ -353,26 +306,22 @@ function textureUpdate()
             grid[x][y] = temp;
             
             grid[x][y].needsUpdate = true;
-            if (grid[x][y].state)
-            {
+            if (grid[x][y].state) {
                scene.add(grid[x][y].mesh);
             }
         }
     }
 }
 
-function conwayButtonPress()
-{
+//=============================================================================
+function conwayButtonPress() {
     var elem = document.getElementById("modeButton");
-    if (elem.value == "Conway's") 
-    {
+    if (elem.value == "Conway's") {
         elem.value = "Cena's";
         conwayAudio.pause();
         conwayAudio.currentTime = 0;
         cenaAudio.play();
-    }
-    else 
-    {
+    } else  {
         elem.value = "Conway's";
         cenaAudio.pause();
         cenaAudio.currentTime = 0;
@@ -385,24 +334,22 @@ function conwayButtonPress()
     renderer.render(scene, camera);
 }
 
-function volumeToggle()
-{
+//=============================================================================
+function volumeToggle() {
     var image = document.getElementById("pic");
-    if (image.src.match("textures/PLAYING.png")) 
-    {
+    if (image.src.match("textures/PLAYING.png")) {
         image.src = "textures/MUTE.png";
         conwayAudio.volume = 0;
         cenaAudio.volume = 0;
         cenaPiano.volume = 0;
-    }
-    else 
-    {
+    } else {
         image.src = "textures/PLAYING.png";
         conwayAudio.volume = .4;
         cenaAudio.volume = .8;
         cenaPiano.volume = .5;
     }
 }
+
 //=============================================================================
 //=============================================================================
 var main = function() {
@@ -424,44 +371,15 @@ var main = function() {
 				renderer.setSize( window.innerWidth , window.innerHeight );
 				document.body.appendChild( renderer.domElement );
 
-	// camera = new THREE.OrthographicCamera(75, window.innerWidth / window.innerHeight, 1, 1000 );
     camera = new THREE.OrthographicCamera( window.innerWidth / - 2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / - 2, - 500, 1000 );
 	camera.position.x = 200;
 	camera.position.y = 200;
 	camera.position.z = 10000;
-
-	// camera.position.x = 500;
-	// camera.position.y = 500;
-
-	//scene = new THREE.Scene();
-
-	// for (var i = 0; i < grid.length; i++){
-	// 	for (var j = 0; j < grid[i].length; ++j){
-	// 		if (grid[i][j].state == true){
-	// 			scene.add( grid[i][j].mesh );
-	// 		}
-	// 	}
-	// }
-
-	// g = new THREE.CubeGeometry( 200, 200, 200 );
-	// m = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true, wireframeLinewidth: 2 } );
-
-	// me = new THREE.Mesh( g, m );
-	// var scene = new THREE.Scene();
-	// me.position = new THREE.Vector3(-200, -200, 0);
-	// scene.add( me );
-	// renderer.render(scene,camera);
-
-
-
 };
 
+//=============================================================================
 function render(type = true) {
-
-	// var delta = clock.getDelta(),
-	// 	time = clock.getElapsedTime() * 1000;
-
-	if (type == true){
+	if (type == true) {
 		updateGrid();
 	}
 	scene = new THREE.Scene();
@@ -481,51 +399,20 @@ function render(type = true) {
 	camera.lookAt( scene.position );
     
 	renderer.render( scene, camera );
-
 }
 
+//=============================================================================
 function animate() {
 	requestAnimationFrame( animate );
-
 	render();
-
 }
 
+//=============================================================================
 function handleSpeed(slider) {
-	console.log("!!!!!!!!!!!!!!!!!!!!     " + slider.value);
 	SPEED_VALUE = slider.value;
-	console.log("====================    " + SPEED_VALUE);
 }	
-	
-	
 
-
-function handleScroll(slider) {
-    var part = slider.name;
-    var ori = slider.attributes["orien"].nodeValue;
-    var val = slider.value;
-    
-    // Find the node
-    var finder = new FindByNameVisitor( part );
-    root.accept( finder );
-
-    if (finder.found !== undefined) {
-        elem = finder.found;
-        switch (ori) { // (angle, x, y, z, result)
-            case 'x':
-                osg.Matrix.makeRotate(degToRad(val), 1.0, 0.0, 0.0, elem.getMatrix() );
-                break;
-            case'y':
-                osg.Matrix.makeRotate(degToRad(val), 0.0, 1.0, 0.0, elem.getMatrix() );
-                break;
-            case 'z':
-                osg.Matrix.makeRotate(degToRad(val), 0.0, 0.0, 1.0, elem.getMatrix() );
-                break;
-        }
-    }
-    
-}
-
+//=============================================================================
 conwayAudio.addEventListener("ended", function(e){conwayAudio.play();}, false);
 cenaAudio.addEventListener("ended", function(e){cenaPiano.play();}, false);
 cenaPiano.addEventListener("ended", function(e){cenaPiano.play();}, false);

@@ -14,27 +14,13 @@
 				padding: 10px;
 			}
 		</style>
-		<!-- Button Styling -->
-		<style type="text/css">
-			.button input {
-				color: #000;
-				background: #ffa20f;
-				border: 2px outset #d7b9c9
-			}
-		</style>
 	</head>
 
+<!-- ================================================================================== -->
 
-	
 	<body>
 		<img id="pic" onclick="volumeToggle()" align="right" src="textures\PLAYING.png">
 		<h1> John <input onclick="conwayButtonPress()" type="button" value="Conway's" id="modeButton" style="font-size:20px; font-family: Georgia, serif"></input> 3D Game Of Life</h1>
-		
-		<!-- http://stackoverflow.com/questions/10671174/changing-button-text-onclick -->
-		<!-- fyi use this in the javascript to change text -->
-		
-		<!-- fyi use this in the javascript to change text -->
-		<!-- http://stackoverflow.com/questions/10671174/changing-button-text-onclick -->
 		<p style="font-size:12px"> This is the final graphics project for Kathryn DiPippo, Marina Espinoza, Darien Keyack, Alexander Mohr, and Kathrine Ryan. </p>
 
 		<p>
@@ -48,8 +34,7 @@
 			</ul>
 		</p>
 		
-		
-		<!-- bottom input things -->
+		<!-- table that reads in user inputs -->
 		<div id="controls">
 			<table border="1" cellpadding="10"><tr>
 				<td>
@@ -57,10 +42,6 @@
 					<p>Width: <input type="text" id="gridWidth" name="fname"></p>
 					<p>Height: <input type="text" id="gridHeight" name="fname"></p>
 					
-					<!-- TO USE, ADD TO JAVASCRIPT:
-					var gridWidth = document.getElementById('gridWidth');
-					var gridHeight = document.getElementById('gridHeight');
-					-->
 					<p>Cube States: <select name="game_name" id="size">
 						<option value="10">All Dead</option>
 						<option value="20">Random</option>
@@ -70,30 +51,11 @@
 					
 				</td>
 				<td>
-					<!-- this might be difficult to do -->
 					<h3>Edit an Individual Cube:</h3>
 					<p>X: <input type="text" id="individ_y" name="fname"></p>
 					<p>Y: <input type="text" id="individ_x" name="fname"></p>
 					<input type="button" id="switcheroo" value="Switch Cube State" onclick="change_state_button()"/>
-
-					<!-- TO USE, ADD TO JAVASCRIPT:
-					var ???? = document.getElementById('gridWidth');
-					var ???? = document.getElementById('gridHeight');
-					-->
 				</td>
-				<!-- <td>
-					
-					<h3>Speed:</h3>
-					<select name="speed" id="speed">
-						<option value="1000">Slow (1 gen/sec)</option>
-						<option value="500">Medium (2 gen/sec)</option>
-						<option value="100">Fast (10 gen/sec)</option>
-						<option value="50">Ludicrous (20 gen/sec)</option>
-					</select>
-					<p><input type="button" id="start" value="Play" />
-					
-					<input type="button" id="reset" value="Randomize/Reset" /></p>
-				</td> -->
 				<td>
 					<h3>Current Values:</h3>
 					<p style="font-size:12px">Generation: <input type="text" id="gen_" maxlength="4" size="4" style="background-color:#A9A9F5; font-size:12px"></p>
@@ -114,23 +76,6 @@
 				<p style="font-size:10px">Move right to decrease speed</p></td>
 			</tr></table>
 			<p></p>
-			
-			<!-- <img src="PLAYING.png" name="pic" onclick="swap()"/>
-			<img src="PLAYING.png" onclick="this.src = this.src == playingImg ? muteImg : playingImg;"/> -->
-			
-			
-			<!-- Preset Games:
-			<select name="game_name" id="size">
-				<option value="10">Random</option>
-				<option value="20">The destroyer</option>
-				<option value="25">Death mechanics</option>
-			</select> -->
-				
-			<!-- <select name="size" id="size">
-				<option value="10">10x10x10</option>
-				<option value="20">15x15x15</option>
-				<option value="25">Medium (15625 cells)</option>
-			</select> -->
 		</div>
 	</body>
 </html>
