@@ -32,7 +32,7 @@ var camera, scene, renderer;
 var clock = new THREE.Clock();
 var running = false;
 var myTimer;
-var SPEED_VALUE = 500;
+var SPEED_VALUE = 0;
 
 //=============================================================================
 function initialize_button() {
@@ -408,8 +408,9 @@ function animate() {
 }
 
 //=============================================================================
-function handleSpeed(slider) {
-	SPEED_VALUE = slider.value;
+function handleSpeed() {
+	var number = document.getElementById("speedDropdown").value;  
+	SPEED_VALUE = number;
 }	
 
 //=============================================================================

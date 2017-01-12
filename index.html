@@ -1,81 +1,117 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>John C's 3D Game Of Life</title>
-		<script type="text/javascript" src="RequestAnimationFrame.js"></script>
-		<script type="text/javascript" src="build/three.js"></script>
-		<script type="text/javascript" src="jquery-1.7.min.js"></script>
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/three.js/r57/three.min.js"></script>
-		<style>
-			body {
-				font-family: Georgia, serif;
-				background-color: #e3e3e3;
-				margin: 0px;
-				padding: 10px;
-			}
-		</style>
-	</head>
-
-<!-- ================================================================================== -->
-
-	<body>
-		<img id="pic" onclick="volumeToggle()" align="right" src="textures\PLAYING.png">
-		<h1> John <input onclick="conwayButtonPress()" type="button" value="Conway's" id="modeButton" style="font-size:20px; font-family: Georgia, serif"></input> 3D Game Of Life</h1>
-		<p style="font-size:12px"> This is the final graphics project for Kathryn DiPippo, Marina Espinoza, Darien Keyack, Alexander Mohr, and Kathrine Ryan. </p>
-
-		<p>
-			<script type="text/javascript" src="index.js"></script>
-			<strong>Rules:</strong>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>John C's 3D Game Of Life</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="style.css">
+	<script type="text/javascript" src="RequestAnimationFrame.js"></script>
+	<script type="text/javascript" src="build/three.js"></script>
+	<script type="text/javascript" src="jquery-1.7.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/three.js/r57/three.min.js"></script>
+	<script type="text/javascript" src="index.js"></script>
+</head>
+<body>
+	<img id="pic" onclick="volumeToggle()" align="right" class="muteButton" src="textures\PLAYING.png">
+	<div class="jumbotron">
+		<h1>John <input onclick="conwayButtonPress()" type="button" value="Conway's" class="btn btn-danger conButton" id="modeButton"></input> 3D Game Of Life</h1>
+		<p class="redDescription">Final Computer Graphics Project for <br>Kathryn DiPippo | Marina Espinoza | Darien Keyack | Alexander Mohr | Kathrine Ryan.</p>
+	</div>
+	<div class="container-fluid"><div class="row">
+		<div class="col-md-6">
+			<h3>Rules</h3>
 			<ul>
-				<li style="font-size:12px"><pre>Any live cell with less than two live neighbors dies       (underpopulation)</li></pre>
-				<li style="font-size:12px"><pre>Any live cell with two or three neighbors continues living</li></pre>
-				<li style="font-size:12px"><pre>Any live cell with more than three neighbors lives         (overpopulation)</li></pre>
-				<li style="font-size:12px"><pre>Any empty cell with three live neighbors becomes alive     (reproduction)</li></pre>
+				<li>Any live cell with less than two live neighbors dies       (underpopulation)</li>
+				<li>Any live cell with two or three neighbors continues living</li>
+				<li>Any live cell with more than three neighbors lives         (overpopulation)</li>
+				<li>Any empty cell with three live neighbors becomes alive     (reproduction)</li>
 			</ul>
-		</p>
-		
-		<!-- table that reads in user inputs -->
-		<div id="controls">
-			<table border="1" cellpadding="10"><tr>
-				<td>
-					<h3>Grid Size:</h3>
-					<p>Width: <input type="text" id="gridWidth" name="fname"></p>
-					<p>Height: <input type="text" id="gridHeight" name="fname"></p>
-					
-					<p>Cube States: <select name="game_name" id="size">
-						<option value="10">All Dead</option>
-						<option value="20">Random</option>
-					</select></p>
-					
-					<input type="button" id="init" value="Initialize" onclick="initialize_button()"/>
-					
-				</td>
-				<td>
-					<h3>Edit an Individual Cube:</h3>
-					<p>X: <input type="text" id="individ_y" name="fname"></p>
-					<p>Y: <input type="text" id="individ_x" name="fname"></p>
-					<input type="button" id="switcheroo" value="Switch Cube State" onclick="change_state_button()"/>
-				</td>
-				<td>
-					<h3>Current Values:</h3>
-					<p style="font-size:12px">Generation: <input type="text" id="gen_" maxlength="4" size="4" style="background-color:#A9A9F5; font-size:12px"></p>
-					<p style="font-size:12px">Cubes Currently Alive: <input type="text" id="alives_" maxlength="4" size="4" style="background-color:#A9F5A9; font-size:12px"></p>
-					<p style="font-size:12px">Percent Alive: <input type="text" id="ratio_" maxlength="4" size="4" style="background-color:#A9F5A9; font-size:12px"></p>
-				</td><td>
-					<p style="font-size:12px">Death Toll (total): <input type="text" id="deads_" maxlength="4" size="4" style="background-color:#F5A9A9; font-size:12px"></p>
-					<p style="font-size:12px">Death toll (by underpopulation): <input type="text" id="under_" maxlength="4" size="4" style="background-color:#F5A9A9; font-size:12px"></p>
-					<p style="font-size:12px">Death toll (by overpopulation): <input type="text" id="over_" maxlength="4" size="4" style="background-color:#F5A9A9; font-size:12px"></p>
-					<p style="font-size:12px">
-						<input type="button" id="step_butt" value="Step" onClick="render()"/> <!-- CHANGE ON_CLICK -->
-						<input type="button" id="play_butt" value="Play" onClick="play()"/><!--myTimer = setInterval(render, 500)"/>-->
-						<input type="button" id="pause_butt" value="Pause" onClick="pause()"/>
-					</p>
-				</td>
-				<td><p>Speed: <input name="speed" orien="z" type="range" value="100" max="500" min="1" oninput="handleSpeed(this);"></input><br><br><br><br></p>
-				<p style="font-size:10px">Move left to increase speed</p>
-				<p style="font-size:10px">Move right to decrease speed</p></td>
-			</tr></table>
-			<p></p>
+		</div><div class="col-md-6">
+			<h3>Additional Notes</h3>
+			<ul>
+				<li class="backgroundDanger">Simulation will only work in Firefox!</li>
+				<li>Set Width and Height to integers, recommended between 10 to 30; 20 is an optimal value performance-wise</li>
+				<li>Change the speed setting by seleting </li>
+				<li>Simulation must be paused and replayed in order for changes in the Speed to occur</li>
+			</ul>
 		</div>
-	</body>
+	</div></div>
+	
+	<div id="controls" class="container-fluid"><div class="row row-eq-height">
+		<div class="col-md-4 oddColumn">
+			<h3>Grid Size</h3>
+			<div class="row">
+				<div class="col-md-3 labelText">Width</div>
+				<div class="col-md-9"><input type="text" id="gridWidth" value="20" class="form-control" name="fname"></div>
+			</div><div class="row">
+				<div class="col-md-3 labelText">Height</div>
+				<div class="col-md-9"><input type="text" id="gridHeight" value="20" class="form-control" name="fname"></div>
+			</div><div class="row">
+				<div class="col-md-3 labelText">Cube States</div>
+				<div class="col-md-9">
+					<select name="game_name" class="form-control" id="size">
+						<option value="20">Random</option>
+						<option value="10">All Dead</option>
+					</select>
+				</div>
+			</div>
+			<input type="button" id="init" value="Initialize" class="btn btn-block btn-danger" onclick="initialize_button()"/>
+		</div><div class="col-md-4 evenColumn">
+			<h3>Edit an Individual Cube</h3>
+			<div class="row">
+				<div class="col-md-3 labelText">X</div>
+				<div class="col-md-9"><input type="text" id="individ_y" class="form-control" name="fname"></div>
+			</div><div class="row">
+				<div class="col-md-3 labelText">Y</div>
+				<div class="col-md-9"><input type="text" id="individ_x" class="form-control" name="fname"></div>
+			</div>
+			<input type="button" id="switcheroo" value="Switch Cube State" class="btn btn-block btn-danger" onclick="change_state_button()"/>
+			<hr>
+			<h3>Speed</h3>
+			<label>Set rendering delay</label>
+			<select name="speed" id="speedDropdown" class="form-control" oninput="handleSpeed();">
+				<option value="0">No delay</option>
+				<option value="100">100 milliseconds</option>
+				<option value="200">200 milliseconds</option>
+				<option value="300">300 milliseconds</option>
+				<option value="400">400 milliseconds</option>
+				<option value="500">500 milliseconds</option>
+			</select>
+			The simulation must be paused for speed adjustment to take effect.
+		</div><div class="col-md-4 oddColumn">
+			<h3>Statistics</h3>
+			<div class="row">
+				<div class="col-md-6 labelText">Generation</div>
+				<div class="col-md-6"><input type="text" class="form-control neutralStat" id="gen_" maxlength="4" size="4"></div>
+			</div><div class="row">
+				<div class="col-md-6 labelText">Cubes Currently Alive</div>
+				<div class="col-md-6"><input type="text" class="form-control goodStat" id="alives_" maxlength="4" size="4"></div>
+			</div><div class="row">
+				<div class="col-md-6 labelText">Percent Alive</div>
+				<div class="col-md-6"><input type="text" class="form-control goodStat" id="ratio_" maxlength="4" size="4"></div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-md-6 labelText">Total Deaths</div>
+				<div class="col-md-6"><input type="text" class="form-control badStat" id="deads_" maxlength="4" size="4"></div>
+			</div><div class="row">
+				<div class="col-md-6 labelText">Deaths due to Underpopulation</div>
+				<div class="col-md-6"><input type="text" class="form-control badStat" id="under_" maxlength="4" size="4"></div>
+			</div><div class="row">
+				<div class="col-md-6 labelText">Deaths due to Overpopulation</div>
+				<div class="col-md-6"><input type="text" class="form-control badStat" id="over_" maxlength="4" size="4"></div>
+			</div><div class="row">
+				<div class="col-md-4">
+					<input type="button" id="step_butt" value="STEP" class="btn btn-block btn-danger" onClick="render()"/>
+				</div><div class="col-md-4">
+					<input type="button" id="play_butt" value="PLAY" class="btn btn-block btn-danger" onClick="play()"/>
+				</div><div class="col-md-4">
+					<input type="button" id="pause_butt" value="PAUSE" class="btn btn-block btn-danger" onClick="pause()"/>
+				</div>
+			</div>
+		</div>
+	</div></div>
+</body>
 </html>
