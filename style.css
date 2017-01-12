@@ -1,0 +1,88 @@
+body {
+	background-color: #E4DED0;
+	color: #191618;
+}
+
+.muteButton {
+	width: 50px;
+	height: auto;
+}
+
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+  margin-bottom: 10px;
+}
+
+.jumbotron {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-bottom: 0px;
+	background-color: #7DBEBA;
+	text-align: center;
+	width: 100%;
+	border-bottom: 10px solid #ABCBBC;
+}
+
+.jumbotron p {
+	margin-bottom: 5px;
+}
+
+hr {
+	border-color: #E32F21;
+}
+
+.labelText {
+	margin-top: 5px;
+	text-align: right;
+}
+
+.redDescription {
+	background-color: #d9534f;
+	color: #E4DED0;
+}
+
+li.backgroundDanger {
+	background-color: rgba(217,83,79,0.25);
+	color: #d9534f;
+}
+
+.btn-danger {
+	color: #E4DED0;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.conButton {
+	font-size: 45px;
+}
+
+h3 { text-align: center; }
+
+.oddColumn {
+	background-color: #ABCBBC;
+}
+
+.evenColumn {
+	background-color: #C8D4C6;
+}
+
+.goodStat {
+	background-color: #67FFA2;
+}
+
+.neutralStat {
+	background-color: #FDFF9E;
+}
+
+.badStat {
+	background-color: #FF6645;
+}
+
+canvas {
+	width: 100% !important; /* I have failed you, CSS tutors */
+	height: auto !important;
+	border: 3px solid #fff;
+}
