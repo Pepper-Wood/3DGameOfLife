@@ -26,6 +26,10 @@ body {
 	border-bottom: 10px solid #ABCBBC;
 }
 
+.input-group-addon {
+	background-color: #E4DED0;
+}
+
 .jumbotron p {
 	margin-bottom: 5px;
 }
